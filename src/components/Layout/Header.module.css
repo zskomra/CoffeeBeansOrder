@@ -4,10 +4,10 @@
     color: white;
     display: flex;
     height: 4rem;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background-color: brown;
-    padding: 0 5%;
+    padding: 0 5% ;
    
 }
 
