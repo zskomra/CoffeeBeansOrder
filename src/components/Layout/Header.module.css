@@ -1,14 +1,14 @@
 .header {
     position: fixed;
-    width: 100%;
+    width: 90%;
     color: white;
     display: flex;
     height: 4rem;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background-color: brown;
     padding: 0 5% ;
-   
+    z-index: 10;
 }
 
 .main-image {

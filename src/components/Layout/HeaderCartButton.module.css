@@ -8,7 +8,7 @@
   align-items: center;
   border-radius: 10px;
   font-weight: bold;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 3rem;
   border: none;
 }
 
@@ -28,5 +28,6 @@
   padding: 0.5rem 0.7rem;
   border-radius: 10px;
   margin-left: 0.5rem;
+  
 }
 

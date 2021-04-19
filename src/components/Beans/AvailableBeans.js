@@ -1,5 +1,6 @@
 import classes from "./AvailableBeans.module.css";
 import Card from '../UI/Card';
+import BeanItem from "./BeanItem/BeanItem";
 const DUMMY_BEANS = [
   {
     id: "b1",
@@ -32,7 +33,8 @@ const DUMMY_BEANS = [
 
 const AvailableBeans = () => {
   const beansList = DUMMY_BEANS.map((bean) => 
-    <li>{bean.name}</li>
+    <BeanItem name={bean.name} key={bean.id} 
+    description ={bean.description} price={bean.price} />
   );
 
   return (
