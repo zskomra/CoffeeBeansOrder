@@ -1,4 +1,5 @@
 import classes from "./BeanItem.module.css";
+import BeanItemForm from "./BeanItemForm";
 
 const BeanItem = props => {
     const price = `${props.price.toFixed(2)}`;
@@ -10,7 +11,7 @@ const BeanItem = props => {
             <div className={classes.price}>{price}</div>
         </div>
         <div>
-            
+            <BeanItemForm />
         </div>
     </li>
 };
