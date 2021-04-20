@@ -34,6 +34,7 @@ const DUMMY_BEANS = [
 const AvailableBeans = () => {
   const beansList = DUMMY_BEANS.map((bean) => (
     <BeanItem
+      id={bean.id}
       name={bean.name}
       key={bean.id}
       description={bean.description}
