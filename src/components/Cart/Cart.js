@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import CartContext from "../../store/cart-context";
 import classes from "./Cart.module.css";
 import Modal from "./Modal";
 
@@ -7,12 +9,14 @@ const Cart = (props) => {
     <li>{cartItem.name}</li>
   )}</ul>;
 
+  const cartCtx = useContext(CartContext);
   return (
+    
     <Modal onHideModal={props.onHideCart}>
       {cartItems}
       <div className={classes.total}>
         <span>Total amount</span>
-        <span>12</span>
+        <span>{cartCtx.totalAmount}</span>
       </div>
       <div className={classes.actions}>
         <button onClick={props.onHideCart} className={classes['button--negative']}>Cancel</button>

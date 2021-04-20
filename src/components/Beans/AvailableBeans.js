@@ -1,5 +1,5 @@
 import classes from "./AvailableBeans.module.css";
-import Card from '../UI/Card';
+import Card from "../UI/Card";
 import BeanItem from "./BeanItem/BeanItem";
 const DUMMY_BEANS = [
   {
@@ -32,15 +32,19 @@ const DUMMY_BEANS = [
 ];
 
 const AvailableBeans = () => {
-  const beansList = DUMMY_BEANS.map((bean) => 
-    <BeanItem name={bean.name} key={bean.id} 
-    description ={bean.description} price={bean.price} />
-  );
+  const beansList = DUMMY_BEANS.map((bean) => (
+    <BeanItem
+      name={bean.name}
+      key={bean.id}
+      description={bean.description}
+      price={bean.price}
+    />
+  ));
 
   return (
     <section className={classes.beans}>
-        <Card>
-      <ul>{beansList}</ul>
+      <Card>
+        <ul>{beansList}</ul>
       </Card>
     </section>
   );
