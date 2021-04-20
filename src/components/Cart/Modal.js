@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 const Backdrop = props => {
     return (
-        <div onClick={props.onConfirm} className={classes.backdrop}></div>
+        <div onClick={props.onClick} className={classes.backdrop}></div>
     );
 };
 
@@ -22,7 +22,7 @@ const Modal = props => {
     return (
         <Fragment>
             {ReactDOM.createPortal(
-                <Backdrop onConfirm={props.onConfirm} />,
+                <Backdrop onClick={props.onHideModal} />,
                 document.getElementById("backdrop-root")
             )}
             {ReactDOM.createPortal(

@@ -8,14 +8,14 @@ const Cart = (props) => {
   )}</ul>;
 
   return (
-    <Modal>
+    <Modal onHideModal={props.onHideCart}>
       {cartItems}
       <div className={classes.total}>
         <span>Total amount</span>
         <span>12</span>
       </div>
       <div className={classes.actions}>
-        <button className={classes['button--negative']}>Cancel</button>
+        <button onClick={props.onHideCart} className={classes['button--negative']}>Cancel</button>
         <button className={classes.button}>Order</button>
       </div>
       </Modal>
