@@ -8,15 +8,11 @@ const BeanItem = props => {
     const price = `${props.price.toFixed(2)}`;
 
     const onAddToCartHanlder = amount => {
-    //    console.log(amount);
-    //    console.log(props.id);
-    //    console.log(props.name);
-    //    console.log(props.price);
         cartCtx.addItem({
             id: props.id,
             amount: amount,
             name: props.name,
-            price: props.price
+            price: price
         });
     }
     

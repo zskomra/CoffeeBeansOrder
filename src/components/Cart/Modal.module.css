@@ -11,7 +11,7 @@
 .modal {
   position: fixed;
   background-color: white;
-  margin-top: 15rem ;
+  margin-top: 20vh ;
   left: 30%;
   width: 40%;
   z-index: 10;
@@ -19,6 +19,18 @@
   padding: 1rem;
   z-index: 30;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  max-height: 30rem;
+  animation: slide-down 300ms ease-out forwards;
 }
 
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
