@@ -32,7 +32,7 @@
     border: 1.25px solid black;
     border-radius: 5px;
     padding: 0 0.7rem;
-    
+    width: 2rem;
 }
 
 .buttons button:active,
