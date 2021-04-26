@@ -1,38 +1,32 @@
 import classes from "./AvailableBeans.module.css";
 import Card from "../UI/Card";
 import BeanItem from "./BeanItem/BeanItem";
-const DUMMY_BEANS = [
-  {
-    id: "b1",
-    name: "COLOMBIAN BUCARAMANGA",
-    description:
-      "This coffee works fantastically well in all brewing equipment, including espresso / cappuccino machines, cafetiere pots, paper / metal filter brewers, and Turkish brewers.",
-    price: 19.99,
-  },
-  {
-    id: "b2",
-    name: "GUATEMALA EL FOGON",
-    description:
-      "All our single origin coffees are freshly roasted by us at our traditional family-run coffee roastery in rural Kent.",
-    price: 14.99,
-  },
-  {
-    id: "b3",
-    name: "MONSOONED MALABAR",
-    description: "Cup profile: Light to medium light Sweet and Fairly soft",
-    price: 11.99,
-  },
-  {
-    id: "b4",
-    name: "COLOMBIAN BUCARAMANGA",
-    description:
-      " This coffee has a complex and condensed flavour, which is admired by enthusiasts and connoisseurs alike.",
-    price: 13.99,
-  },
-];
+import { useEffect, useState } from "react";
+
+
 
 const AvailableBeans = () => {
-  const beansList = DUMMY_BEANS.map((bean) => (
+  const [beans, setBeans] = useState([]);
+  useEffect(() => {
+    const fetchMeals = async() => {
+      const response = await fetch('https://coffee-beans-e3691-default-rtdb.europe-west1.firebasedatabase.app/beans.json');
+      const responseData = await response.json();
+
+      const loadedMeals = [];
+      for (const key in responseData) {
+        loadedMeals.push({
+          id: key,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price : responseData[key].price
+        })
+      }
+      setBeans(loadedMeals);
+    };
+    fetchMeals();
+  }, [])
+
+  const beansList = beans.map((bean) => (
     <BeanItem
       id={bean.id}
       name={bean.name}
