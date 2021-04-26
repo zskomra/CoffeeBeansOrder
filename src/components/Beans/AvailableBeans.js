@@ -7,9 +7,17 @@ import { useEffect, useState } from "react";
 
 const AvailableBeans = () => {
   const [beans, setBeans] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError , setHttpError] = useState();
+
   useEffect(() => {
     const fetchMeals = async() => {
       const response = await fetch('https://coffee-beans-e3691-default-rtdb.europe-west1.firebasedatabase.app/beans.json');
+
+      if(!response.ok) {
+        throw new Error('Ooops something get wrong!')
+      }
+
       const responseData = await response.json();
 
       const loadedMeals = [];
@@ -22,9 +30,28 @@ const AvailableBeans = () => {
         })
       }
       setBeans(loadedMeals);
+      setIsLoading(false);
     };
-    fetchMeals();
+
+    
+    fetchMeals().then().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
+    
+
   }, [])
+
+  if(isLoading) {
+    return <section className={classes['beans-loading']}>
+      <p>Loading...</p>
+    </section>
+  };
+  if(httpError) {
+    return <section className={classes['beans-error']}>
+      <p>{httpError}</p>
+    </section>
+  }
 
   const beansList = beans.map((bean) => (
     <BeanItem
@@ -40,9 +67,10 @@ const AvailableBeans = () => {
     <section className={classes.beans}>
       <Card>
         <ul>{beansList}</ul>
-      </Card>
+      </Card>      
     </section>
   );
+  
 };
 
 export default AvailableBeans;

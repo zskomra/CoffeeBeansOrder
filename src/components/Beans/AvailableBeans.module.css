@@ -8,3 +8,15 @@
 .beans ul{
     list-style: none;
 }
+
+.beans-loading {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+}
+
+.beans-error {
+    text-align: center;
+    color: red;
+    font-size: 2rem;
+}
