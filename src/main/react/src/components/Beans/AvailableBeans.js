@@ -12,7 +12,8 @@ const AvailableBeans = () => {
 
   useEffect(() => {
     const fetchMeals = async() => {
-      const response = await fetch('https://coffee-beans-e3691-default-rtdb.europe-west1.firebasedatabase.app/beans.json');
+      // const response = await fetch('https://coffee-beans-e3691-default-rtdb.europe-west1.firebasedatabase.app/beans.json');
+      const response = await fetch('http://localhost:8080/api/beans');
 
       if(!response.ok) {
         throw new Error('Ooops something get wrong!')
@@ -23,7 +24,7 @@ const AvailableBeans = () => {
       const loadedMeals = [];
       for (const key in responseData) {
         loadedMeals.push({
-          id: key,
+          id: responseData[key].id,
           name: responseData[key].name,
           description: responseData[key].description,
           price : responseData[key].price

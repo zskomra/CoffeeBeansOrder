@@ -50,6 +50,14 @@ const Checkout = (props) => {
     if (!formiSValid) {
       return;
     }
+
+    props.onConfirm({
+        firstName: enteredFirstName,
+        lastName: enteredLastName,
+        postcode: enteredPost,
+        city: enteredCity,
+        street: enteredStreet
+    });
   };
 
   return (
