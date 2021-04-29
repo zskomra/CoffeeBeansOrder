@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
-//@Embeddable
+@Embeddable
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
