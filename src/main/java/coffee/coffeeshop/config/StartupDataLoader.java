@@ -1,6 +1,6 @@
 package coffee.coffeeshop.config;
 
-import coffee.coffeeshop.model.domain.Beans;
+import coffee.coffeeshop.model.domain.Bean;
 import coffee.coffeeshop.model.repositories.BeansRepository;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -19,12 +19,12 @@ public class StartupDataLoader {
 
     @EventListener
     public void loadData(ContextRefreshedEvent event) {
-        Beans beans1 = new Beans(null, "name","description", BigDecimal.valueOf(12));
-        Beans beans2 = new Beans(null, "name2","description2", BigDecimal.valueOf(12.45));
-        Beans beans3 = new Beans(null, "name3","description3", BigDecimal.valueOf(12.01));
+        Bean bean1 = new Bean(null, "COLOMBIAN BUCARAMANGA","This coffee works fantastically well in all brewing equipment, including espresso / cappuccino machines, cafetiere pots, paper / metal filter brewers, and Turkish brewers.", BigDecimal.valueOf(12));
+        Bean bean2 = new Bean(null, "GUATEMALA EL FOGON","All our single origin coffees are freshly roasted by us at our traditional family-run coffee roastery in rural Kent.", BigDecimal.valueOf(12.45));
+        Bean bean3 = new Bean(null, "MONSOONED MALABAR","Cup profile: Light to medium light Sweet and Fairly soft", BigDecimal.valueOf(12.01));
 
-        beansRepository.save(beans1);
-        beansRepository.save(beans2);
-        beansRepository.save(beans3);
+        beansRepository.save(bean1);
+        beansRepository.save(bean2);
+        beansRepository.save(bean3);
     }
 }

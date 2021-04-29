@@ -11,6 +11,7 @@ const Cart = (props) => {
   const [didSubmit, setDidSubmit] = useState(false);
 
   const totalAmount = cartCtx.totalAmount.toFixed(2);
+  
 
   const onAddHandler = (item) => {
     cartCtx.addItem({ ...item, amount: 1 });
@@ -27,15 +28,21 @@ const Cart = (props) => {
 
   const onSubmitHandler = (userData) => {
     fetch(
-      "https://coffee-beans-e3691-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
+      // "https://coffee-beans-e3691-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
+      'http://localhost:8080/api/beans',
       {
         method: "POST",
-        body: JSON.stringify({
-          user: userData,
-          orderItems: cartCtx.items,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+          {
+          orderAddress: userData,
+          orderItems : cartCtx.items,          
+        }
+        ),
       }
     );
+    console.log(userData);
+    console.log(cartCtx.items);
     setDidSubmit(true);
     cartCtx.clearCart();
   };
