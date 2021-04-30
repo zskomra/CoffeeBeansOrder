@@ -15,6 +15,7 @@ import java.util.List;
 @Setter
 @Builder
 @EqualsAndHashCode(of ={"name","price"})
+@Table(name = "beans")
 public class Bean {
 
     @Id
@@ -27,6 +28,5 @@ public class Bean {
     @Column(nullable = false)
     private BigDecimal price;
 
-//    @ManyToMany
-//    private List<Order> orders;
+
 }

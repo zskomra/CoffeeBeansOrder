@@ -1,22 +1,30 @@
-//package coffee.coffeeshop.model.domain;
-//
-//import javax.persistence.*;
-//import java.math.BigDecimal;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Entity
-//public class Order {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-//    private BigDecimal totalAmount;
-//
-//    @Embedded
-//    private OrderAddress orderAddress;
-//
-//    @ManyToMany
-//    private List<Bean> beans = new ArrayList<>();
-//
-//}
+package coffee.coffeeshop.model.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.swing.text.html.Option;
+import java.math.BigDecimal;
+import java.util.*;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "orders")
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private BigDecimal totalAmount;
+
+    @Embedded
+    private OrderAddress orderAddress;
+
+    @Transient
+    private HashMap<Optional<Bean>,Integer> orderItems = new HashMap<>();
+
+}

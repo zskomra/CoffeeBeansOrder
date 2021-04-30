@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -37,9 +36,7 @@ public class BeansController {
 
     @PostMapping()
     public ResponseEntity<?> saveOrderData(@Valid @RequestBody AddressAndBeans userData) {
-        String name = orderService.save(userData);
-        log.info(name);
-        log.info(Arrays.toString(userData.orderItems));
+        Long name = orderService.save(userData);
         return ResponseEntity.ok("ok");
     }
 

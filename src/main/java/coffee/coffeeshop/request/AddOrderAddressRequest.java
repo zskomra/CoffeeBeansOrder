@@ -22,7 +22,7 @@ public class AddOrderAddressRequest {
     @Size(min = 2)
     private String lastName;
     @Size(min = 5, max = 5)
-    private String postCode;
+    private String postcode;
     @NotBlank
     private String city;
     @NotBlank

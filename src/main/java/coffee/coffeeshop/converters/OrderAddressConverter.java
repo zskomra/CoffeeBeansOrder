@@ -16,7 +16,7 @@ public class OrderAddressConverter {
                 .firstName(orderAddress.getFirstName())
                 .lastName(orderAddress.getLastName())
                 .city(orderAddress.getCity())
-                .postCode(orderAddress.getPostCode())
+                .postCode(orderAddress.getPostcode())
                 .street(orderAddress.getStreet())
                 .build();
     }
