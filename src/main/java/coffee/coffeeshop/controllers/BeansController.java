@@ -4,6 +4,7 @@ import coffee.coffeeshop.model.domain.*;
 import coffee.coffeeshop.model.repositories.BeansRepository;
 
 import coffee.coffeeshop.request.AddOrderAddressRequest;
+import coffee.coffeeshop.request.AddOrderBeansRequest;
 import coffee.coffeeshop.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class BeansController {
 
     public static class AddressAndBeans {
         public AddOrderAddressRequest orderAddress;
-        public Beans [] orderItems;
+        public AddOrderBeansRequest[] orderItems;
 
 }
 }

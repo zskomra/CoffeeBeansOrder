@@ -19,12 +19,17 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private BigDecimal totalAmount;
 
     @Embedded
     private OrderAddress orderAddress;
 
-    @Transient
-    private HashMap<Optional<Bean>,Integer> orderItems = new HashMap<>();
+
+    @ElementCollection
+//    ??
+//    @MapKeyJoinColumn(name = "bean")
+    @Column
+    private Map<Bean,Integer> orderItems = new HashMap<>();
 
 }

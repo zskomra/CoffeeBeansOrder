@@ -1,10 +1,12 @@
 package coffee.coffeeshop.model.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,6 +29,5 @@ public class Bean {
     private String description;
     @Column(nullable = false)
     private BigDecimal price;
-
 
 }
