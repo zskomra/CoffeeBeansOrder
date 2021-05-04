@@ -1,0 +1,10 @@
+.items {
+    width: 85%;
+    margin: auto;
+    
+    
+}
+
+.items ul{
+    padding-inline-start: 0;
+}

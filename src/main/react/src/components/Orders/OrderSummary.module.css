@@ -1,0 +1,19 @@
+.order-summary {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;    
+    align-items: center;
+    border-bottom: 4px solid #bbb;
+    height: 20rem;
+    overflow-y:auto;
+    
+}
+.order-summary div{
+    width: 95%;
+    margin: auto;
+}
+
+.orders {
+   margin: 1rem auto;
+}

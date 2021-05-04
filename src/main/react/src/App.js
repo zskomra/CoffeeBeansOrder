@@ -3,6 +3,7 @@ import Header from "./components/Layout/Header";
 import Beans from "./components/Beans/Beans";
 import Cart from "./components/Cart/Cart";
 import CartProvider from "./store/CartProvider";
+import OrderList from "./components/Orders/OrderList";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -21,7 +22,8 @@ function App() {
         {cartIsShown ? <Cart onHideCart={hideCartHandler} /> : ""}
         <Header onShownCart={showCartHandler} />
         <main>
-          <Beans />
+          {/* <Beans /> */}
+          <OrderList />
         </main>
       </Fragment>
     </CartProvider>

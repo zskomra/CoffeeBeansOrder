@@ -64,6 +64,8 @@ const AvailableBeans = () => {
     />
   ));
 
+  console.log(beansList);
+
   return (
     <section className={classes.beans}>
       <Card>
