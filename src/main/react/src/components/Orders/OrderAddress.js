@@ -15,7 +15,7 @@ const OrderAddress = (props) => {
             </div>
             <div className={classes.details}>
                 <label>Post Code</label>
-                <label>{props.address.postcode}</label>
+                <label>{props.address.postCode}</label>
             </div>
             <div className={classes.details}>
                 <label>City</label>

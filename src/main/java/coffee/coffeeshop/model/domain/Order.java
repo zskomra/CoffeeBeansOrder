@@ -3,6 +3,9 @@ package coffee.coffeeshop.model.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
 import javax.swing.text.html.Option;
@@ -26,9 +29,10 @@ public class Order {
     private OrderAddress orderAddress;
 
 
-    @ElementCollection
+
 //    ??
 //    @MapKeyJoinColumn(name = "bean")
+    @ElementCollection(fetch = FetchType.EAGER)
     @Column
     private Map<Bean,Integer> orderItems = new HashMap<>();
 

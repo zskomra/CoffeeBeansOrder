@@ -11,8 +11,7 @@ const AvailableBeans = () => {
   const [httpError , setHttpError] = useState();
 
   useEffect(() => {
-    const fetchMeals = async() => {
-      // const response = await fetch('https://coffee-beans-e3691-default-rtdb.europe-west1.firebasedatabase.app/beans.json');
+    const fetchBeans = async() => {
       const response = await fetch('http://localhost:8080/api/beans');
 
       if(!response.ok) {
@@ -21,21 +20,22 @@ const AvailableBeans = () => {
 
       const responseData = await response.json();
 
-      const loadedMeals = [];
+      const loadedBeans = [];
       for (const key in responseData) {
-        loadedMeals.push({
+        loadedBeans.push({
           id: responseData[key].id,
           name: responseData[key].name,
           description: responseData[key].description,
           price : responseData[key].price
         })
       }
-      setBeans(loadedMeals);
+      setBeans(loadedBeans);
       setIsLoading(false);
+     
     };
 
     
-    fetchMeals().then().catch((error) => {
+    fetchBeans().then().catch((error) => {
       setIsLoading(false);
       setHttpError(error.message);
     });
@@ -64,7 +64,6 @@ const AvailableBeans = () => {
     />
   ));
 
-  console.log(beansList);
 
   return (
     <section className={classes.beans}>
