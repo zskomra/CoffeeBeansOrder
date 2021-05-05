@@ -1,5 +1,5 @@
 .NavigationItems{
-    
+    height: 80%;
     display: flex;
     flex-flow: row;
     list-style: none;

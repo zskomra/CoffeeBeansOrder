@@ -4,6 +4,7 @@ import Beans from "./components/Beans/Beans";
 import Cart from "./components/Cart/Cart";
 import CartProvider from "./store/CartProvider";
 import OrderList from "./components/Orders/OrderList";
+import { Route, Switch } from "react-router";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -22,8 +23,14 @@ function App() {
         {cartIsShown ? <Cart onHideCart={hideCartHandler} /> : ""}
         <Header onShownCart={showCartHandler} />
         <main>
-          <Beans />
-          <OrderList />
+          <Switch>
+            <Route path="/" exact>
+              <Beans />
+            </Route>
+            <Route path="/orders">
+              <OrderList />
+            </Route>
+          </Switch>
         </main>
       </Fragment>
     </CartProvider>
