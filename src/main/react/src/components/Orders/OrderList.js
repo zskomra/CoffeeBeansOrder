@@ -1,6 +1,7 @@
 import classes from "./OrderList.module.css";
 import OrderSummary from "./OrderSummary";
 import { useEffect, useState } from "react";
+import LoadindSpinner from "../UI/LoadingSpinner";
 
 
 const OrderList = () => {
@@ -41,7 +42,7 @@ const OrderList = () => {
 
   if(isLoading) {
     return <section>
-      <p>Loading...</p>
+      <LoadindSpinner />
     </section>
   };
   if(httpError) {

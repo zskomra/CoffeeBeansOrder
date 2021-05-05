@@ -2,7 +2,7 @@ import classes from "./AvailableBeans.module.css";
 import Card from "../UI/Card";
 import BeanItem from "./BeanItem/BeanItem";
 import { useEffect, useState } from "react";
-
+import LoadingSpinner from '../UI/LoadingSpinner';
 
 
 const AvailableBeans = () => {
@@ -45,7 +45,7 @@ const AvailableBeans = () => {
 
   if(isLoading) {
     return <section className={classes['beans-loading']}>
-      <p>Loading...</p>
+      <LoadingSpinner />
     </section>
   };
   if(httpError) {

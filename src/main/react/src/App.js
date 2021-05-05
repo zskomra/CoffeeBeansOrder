@@ -22,7 +22,7 @@ function App() {
         {cartIsShown ? <Cart onHideCart={hideCartHandler} /> : ""}
         <Header onShownCart={showCartHandler} />
         <main>
-          {/* <Beans /> */}
+          <Beans />
           <OrderList />
         </main>
       </Fragment>
