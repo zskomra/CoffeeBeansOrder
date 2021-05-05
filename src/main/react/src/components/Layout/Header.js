@@ -4,11 +4,13 @@ import classes from './Header.module.css';
 
 import beansImg from '../../assets/beans.jpg';
 import HeaderCartButton from "./HeaderCartButton";
+import NavigationItems from './NavigationItems';
 
 const Header = (props) => {
     return <Fragment>
         <header className={classes.header}>
             <h1>CoffeeBeans</h1>
+            <NavigationItems />
             <HeaderCartButton onClick={props.onShownCart}/>
             
         </header>
