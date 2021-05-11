@@ -5,8 +5,14 @@ import coffee.coffeeshop.data.OrderSummary;
 import coffee.coffeeshop.model.domain.Bean;
 import coffee.coffeeshop.model.domain.Order;
 import coffee.coffeeshop.model.domain.OrderAddress;
+import coffee.coffeeshop.model.domain.user.ERole;
+import coffee.coffeeshop.model.domain.user.Role;
+import coffee.coffeeshop.model.domain.user.User;
 import coffee.coffeeshop.model.repositories.BeansRepository;
 import coffee.coffeeshop.model.repositories.OrderRepository;
+import coffee.coffeeshop.model.repositories.RoleRepository;
+import coffee.coffeeshop.model.repositories.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -15,21 +21,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Component
+@AllArgsConstructor
 public class StartupDataLoader {
 
     private BeansRepository beansRepository;
     private OrderRepository orderRepository;
-    public StartupDataLoader(BeansRepository beansRepository, OrderRepository orderRepository) {
-        this.beansRepository = beansRepository;
-        this.orderRepository = orderRepository;
-    }
+    private RoleRepository roleRepository;
+    private UserRepository userRepository;
+
 
     @EventListener
     public void loadData(ContextRefreshedEvent event) {
@@ -41,7 +44,14 @@ public class StartupDataLoader {
         Bean save1 = beansRepository.save(bean2);
         Bean save2 = beansRepository.save(bean3);
 
+        Role role1 = new Role(null, ERole.ROLE_ADMIN);
+        Role role2 = new Role(null, ERole.ROLE_USER);
 
+        roleRepository.save(role1);
+        roleRepository.save(role2);
+
+        User user1 = new User(null, "Jan", "jan@test.pl", "password1",  Set.of(role2));
+        userRepository.save(user1);
 
         Map<Bean,Integer> orders = new HashMap<>();
         orders.put(save,3);

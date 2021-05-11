@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Builder
 public class UserDetailsImpl implements UserDetails {
