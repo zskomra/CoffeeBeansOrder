@@ -35,15 +35,15 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class AuthController {
-
+    @Autowired
     AuthenticationManager authenticationManager;
-
+    @Autowired
     JwtUtils jwtUtils;
-
+    @Autowired
     UserRepository userRepository;
-
+    @Autowired
     PasswordEncoder passwordEncoder;
-
+    @Autowired
     RoleRepository roleRepository;
 
     @PostMapping("/signin")
@@ -66,7 +66,6 @@ public class AuthController {
                         jwt,
                         userDetails.getId(),
                         userDetails.getUsername(),
-                        userDetails.getEmail(),
                         roles));
     }
 
@@ -75,9 +74,6 @@ public class AuthController {
         if(userRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: username already taken"));
         }
-        if(userRepository.existsByEmail(signupRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: email is already in use"));
-        }
 
         Set<Role> roles = new HashSet<>();
         Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -85,7 +81,6 @@ public class AuthController {
 
         User user = User.builder()
                 .username(signupRequest.getUsername())
-                .email(signupRequest.getEmail())
                 .password(passwordEncoder.encode(signupRequest.getPassword()))
                 .roles(roles)
                 .build();

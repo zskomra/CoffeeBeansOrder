@@ -5,6 +5,7 @@ import Cart from "./components/Cart/Cart";
 import CartProvider from "./store/CartProvider";
 import OrderList from "./components/Orders/OrderList";
 import { Route, Switch } from "react-router";
+import AuthForm from "./components/Auth/AuthForm";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -29,6 +30,9 @@ function App() {
             </Route>
             <Route path="/orders">
               <OrderList />
+            </Route>
+            <Route path="/auth">
+              <AuthForm />
             </Route>
           </Switch>
         </main>

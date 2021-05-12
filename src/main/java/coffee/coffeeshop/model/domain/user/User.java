@@ -3,6 +3,7 @@ package coffee.coffeeshop.model.domain.user;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "username"),
-        @UniqueConstraint(columnNames = "email")
+        @UniqueConstraint(columnNames = "username")
 })
 public class User {
     @Id
@@ -24,10 +24,9 @@ public class User {
     private Long id;
 
     @NotBlank
+    @Email
     private String username;
 
-    @NotBlank
-    private String email;
 
     @NotBlank
     private String password;

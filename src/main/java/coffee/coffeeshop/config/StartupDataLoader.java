@@ -50,7 +50,7 @@ public class StartupDataLoader {
         roleRepository.save(role1);
         roleRepository.save(role2);
 
-        User user1 = new User(null, "Jan", "jan@test.pl", "password1",  Set.of(role2));
+        User user1 = new User(null, "jan@test.pl", "password1",  Set.of(role2));
         userRepository.save(user1);
 
         Map<Bean,Integer> orders = new HashMap<>();
