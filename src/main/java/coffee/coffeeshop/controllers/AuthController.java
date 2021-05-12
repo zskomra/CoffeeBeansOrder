@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -48,6 +49,7 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+
         Authentication authentication =authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
 
@@ -68,9 +70,10 @@ public class AuthController {
                         userDetails.getUsername(),
                         roles));
     }
-
-    @PostMapping("/signup")
+    @CrossOrigin("*")
+    @PostMapping(value = "/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
+
         if(userRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: username already taken"));
         }
@@ -85,7 +88,7 @@ public class AuthController {
                 .roles(roles)
                 .build();
         userRepository.save(user);
-
+        log.info(String.valueOf(user));
         return ResponseEntity.ok(new MessageResponse("User registered!"));
 
     }
