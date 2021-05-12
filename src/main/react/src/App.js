@@ -1,14 +1,18 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import Header from "./components/Layout/Header";
 import Beans from "./components/Beans/Beans";
 import Cart from "./components/Cart/Cart";
 import CartProvider from "./store/CartProvider";
 import OrderList from "./components/Orders/OrderList";
-import { Route, Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import AuthForm from "./components/Auth/AuthForm";
+import AuthContext from "./store/auth-context";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
+  const authCtx = useContext(AuthContext);
+  console.log(authCtx.isLoggIn);
+  console.log(authCtx.token);
 
   const showCartHandler = () => {
     setCartIsShown(true);
@@ -17,7 +21,7 @@ function App() {
   const hideCartHandler = () => {
     setCartIsShown(false);
   };
-
+  
   return (
     <CartProvider>
       <Fragment>
@@ -29,7 +33,8 @@ function App() {
               <Beans />
             </Route>
             <Route path="/orders">
-              <OrderList />
+              {!authCtx.isLoggIn && <Redirect to='/auth' />}
+              {authCtx.isLoggIn && <OrderList />}
             </Route>
             <Route path="/auth">
               <AuthForm />

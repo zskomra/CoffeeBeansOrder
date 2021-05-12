@@ -1,12 +1,16 @@
+import { useHistory } from "react-router";
+import AuthContext from "../../store/auth-context";
 import classes from "./AuthForm.module.css";
 
-const { useState, useRef } = require("react");
+const { useState, useRef, useContext } = require("react");
 
 const AuthForm = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const authCtx = useContext(AuthContext);
+  const history = useHistory();
 
   const switchAuthModeHanlder = () => {
     setIsLogin((prevState) => !prevState);
@@ -20,33 +24,40 @@ const AuthForm = () => {
     setIsLoading(true);
     let url;
     const request = {
-        username : enteredEmail,
-        password : enteredPassword
+      username: enteredEmail,
+      password: enteredPassword,
+    };
+    if (isLogin) {
+      url = "http://localhost:8080/api/auth/signin";
+    } else {
+      url = "http://localhost:8080/api/auth/signup";
     }
-    if(isLogin) {
-        url= 'http://localhost:8080/api/auth/signin';
-    }
-    else {
-        url = 'http://localhost:8080/api/auth/signup';
-    }
-    fetch (url,
-        {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },            
-            body: JSON.stringify(
-                request            
-            ),
-            
-        })
-        .then((response) => {
-            setIsLoading(false);
-            if(response.ok) {
-                return response.json();
-            }
-        })
-        .then((data) => {
-            console.log(data.token);
-        })
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(request),
+    })
+      .then((response) => {
+        setIsLoading(false);
+        if (response.ok) {
+          return response.json();
+        } else {
+          return response.json().then((data) => {
+            let errorMessage = data.message;
+            alert(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        authCtx.login(data.token);
+        
+        if (isLogin) {
+          history.replace("/");
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return (
@@ -67,7 +78,10 @@ const AuthForm = () => {
           />
         </div>
         <div className={classes.actions}>
-          <button>{isLogin ? "Login" : "Create Account"}</button>
+          {!isLoading && (
+            <button>{isLogin ? "Login" : "Create Account"}</button>
+          )}
+          {isLoading && <p>Sending request..</p>}
           <button
             className={classes.toggle}
             type="button"

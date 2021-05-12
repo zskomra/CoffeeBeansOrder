@@ -8,6 +8,7 @@ import coffee.coffeeshop.model.domain.OrderAddress;
 import coffee.coffeeshop.model.domain.user.ERole;
 import coffee.coffeeshop.model.domain.user.Role;
 import coffee.coffeeshop.model.domain.user.User;
+import coffee.coffeeshop.model.domain.user.UserDetails;
 import coffee.coffeeshop.model.repositories.BeansRepository;
 import coffee.coffeeshop.model.repositories.OrderRepository;
 import coffee.coffeeshop.model.repositories.RoleRepository;
@@ -16,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,7 @@ public class StartupDataLoader {
     private OrderRepository orderRepository;
     private RoleRepository roleRepository;
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
 
     @EventListener
@@ -50,7 +53,8 @@ public class StartupDataLoader {
         roleRepository.save(role1);
         roleRepository.save(role2);
 
-        User user1 = new User(null, "jan@test.pl", "password1",  Set.of(role2));
+        UserDetails userDetails = new UserDetails("Jan","Kowalski","75123","City","Wolna 1/2");
+        User user1 = new User(null, "jan@test.pl", passwordEncoder.encode("password1"),  Set.of(role2),userDetails);
         userRepository.save(user1);
 
         Map<Bean,Integer> orders = new HashMap<>();
