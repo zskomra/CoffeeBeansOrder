@@ -5,6 +5,7 @@ import coffee.coffeeshop.config.security.service.jwt.JwtUtils;
 import coffee.coffeeshop.model.domain.user.ERole;
 import coffee.coffeeshop.model.domain.user.Role;
 import coffee.coffeeshop.model.domain.user.User;
+import coffee.coffeeshop.model.domain.user.UserDetails;
 import coffee.coffeeshop.model.repositories.RoleRepository;
 import coffee.coffeeshop.model.repositories.UserRepository;
 import coffee.coffeeshop.request.LoginRequest;
@@ -53,6 +54,9 @@ public class AuthController {
         Authentication authentication =authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
 
+        log.info("logowanie: ");
+        log.info(String.valueOf(authentication));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -86,9 +90,10 @@ public class AuthController {
                 .username(signupRequest.getUsername())
                 .password(passwordEncoder.encode(signupRequest.getPassword()))
                 .roles(roles)
+                .userDetails(new UserDetails())
                 .build();
         userRepository.save(user);
-        log.info(String.valueOf(user));
+        log.info("Dane uzytownika : {} ",user.getUserDetails());
         return ResponseEntity.ok(new MessageResponse("User registered!"));
 
     }

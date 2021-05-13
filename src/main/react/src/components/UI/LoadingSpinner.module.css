@@ -22,3 +22,9 @@
       transform: rotate(360deg);
     }
   }
+
+  .spinner-section {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+}

@@ -7,6 +7,7 @@ import OrderList from "./components/Orders/OrderList";
 import { Redirect, Route, Switch } from "react-router";
 import AuthForm from "./components/Auth/AuthForm";
 import AuthContext from "./store/auth-context";
+import Profile from "./components/User/Profile";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -38,6 +39,9 @@ function App() {
             </Route>
             <Route path="/auth">
               <AuthForm />
+            </Route>
+            <Route path="/profile">
+              <Profile />
             </Route>
           </Switch>
         </main>
