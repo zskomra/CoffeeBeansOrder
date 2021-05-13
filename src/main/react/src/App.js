@@ -15,6 +15,10 @@ function App() {
   console.log(authCtx.isLoggIn);
   console.log(authCtx.token);
 
+  const logoutHandler =() => {
+    authCtx.logout();
+  }
+
   const showCartHandler = () => {
     setCartIsShown(true);
   };
@@ -27,7 +31,7 @@ function App() {
     <CartProvider>
       <Fragment>
         {cartIsShown ? <Cart onHideCart={hideCartHandler} /> : ""}
-        <Header onShownCart={showCartHandler} />
+        <Header onShownCart={showCartHandler} onLogout={logoutHandler}/>
         <main>
           <Switch>
             <Route path="/" exact>
@@ -41,7 +45,9 @@ function App() {
               <AuthForm />
             </Route>
             <Route path="/profile">
-              <Profile />
+            {!authCtx.isLoggIn && <Redirect to='/auth' />}
+              {authCtx.isLoggIn && <Profile />}
+              
             </Route>
           </Switch>
         </main>
