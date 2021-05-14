@@ -2,6 +2,8 @@ package coffee.coffeeshop.service;
 
 import coffee.coffeeshop.controllers.BeansController;
 import coffee.coffeeshop.converters.OrderAddressConverter;
+import coffee.coffeeshop.data.OrderBeanSummary;
+import coffee.coffeeshop.data.OrderSummary;
 import coffee.coffeeshop.model.domain.Bean;
 import coffee.coffeeshop.model.domain.Order;
 import coffee.coffeeshop.model.domain.OrderAddress;
@@ -15,8 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.AbstractQuery;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -55,5 +56,29 @@ public class OrderService {
                 .forEach(beans ->
                         orderItems.put(beansRepository.findById(beans.getId()).orElseThrow(), beans.getAmount()));
         return orderItems;
+    }
+
+
+
+    public List<OrderSummary> findUserOrders(String username) {
+        List<OrderSummary> userOrdersSummary = new ArrayList<>();
+        List<Order> userOrders = orderRepository.getAllByUserUsername(username).orElseThrow();
+        userOrders.forEach(order -> userOrdersSummary.add(new OrderSummary(order.getId(),order.getOrderAddress(),order.getTotalAmount(),
+                convertOrderItemsToOrderItemsSummary(order.getOrderItems()))));
+
+        return userOrdersSummary;
+
+    }
+
+    public List<OrderBeanSummary> convertOrderItemsToOrderItemsSummary (Map<Bean,Integer> orderItems) {
+        List<OrderBeanSummary> items = new ArrayList<>();
+        orderItems.forEach((bean,value) -> items.add(
+                OrderBeanSummary.builder()
+                        .beanId(bean.getId())
+                        .name(bean.getName())
+                        .amount(value)
+                        .price(bean.getPrice())
+                        .build()));
+        return items;
     }
 }

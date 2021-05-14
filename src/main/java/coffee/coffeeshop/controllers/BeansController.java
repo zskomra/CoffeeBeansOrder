@@ -24,8 +24,8 @@ import java.util.List;
 @Transactional
 public class BeansController {
 
-    private BeansRepository beansRepository;
-    private OrderService orderService;
+    private final BeansRepository beansRepository;
+    private final OrderService orderService;
 
     public BeansController(BeansRepository beansRepository, OrderService orderService, UserRepository userRepository) {
         this.orderService = orderService;
@@ -35,8 +35,9 @@ public class BeansController {
 
 
     @GetMapping()
-    public List<Bean> getBeans() {
-        return beansRepository.findAll();
+    public ResponseEntity<List<Bean>> getBeans(){
+       List<Bean> beanList = beansRepository.findAll();
+       return ResponseEntity.ok(beanList);
     }
 
 

@@ -1,7 +1,8 @@
 import classes from "./OrderList.module.css";
 import OrderSummary from "./OrderSummary";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import LoadindSpinner from "../UI/LoadingSpinner";
+import AuthContext from "../../store/auth-context";
 
 
 const OrderList = () => {
@@ -9,10 +10,16 @@ const OrderList = () => {
   const [orders, setOrders]= useState();
   const [isLoading, setIsLoading] = useState(true);
   const [httpError , setHttpError] = useState();
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const response = await fetch(`http://localhost:8080/api/orders`);
+      const userToken = authCtx.token;
+      const response = await fetch(`http://localhost:8080/api/orders`, {
+        headers :{ Authentication : userToken
+
+        },
+      });
       if (!response.ok) {
         throw new Error("Could not fetch orders");
       }

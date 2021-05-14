@@ -1,5 +1,6 @@
 package coffee.coffeeshop.model.domain;
 
+import coffee.coffeeshop.model.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,12 +29,11 @@ public class Order {
     @Embedded
     private OrderAddress orderAddress;
 
-
-
-//    ??
-//    @MapKeyJoinColumn(name = "bean")
     @ElementCollection(fetch = FetchType.EAGER)
     @Column
     private Map<Bean,Integer> orderItems = new HashMap<>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
 }

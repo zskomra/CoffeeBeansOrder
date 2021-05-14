@@ -54,16 +54,16 @@ public class StartupDataLoader {
         roleRepository.save(role2);
 
         UserDetails userDetails = new UserDetails("Jan","Kowalski","75123","City","Wolna 1/2");
-        User user1 = new User(null, "jan@test.pl", passwordEncoder.encode("password1"),  Set.of(role2),userDetails);
+        User user1 = new User(null, "jan@test.pl", passwordEncoder.encode("password1"),  Set.of(role2),new ArrayList<>(),userDetails);
         userRepository.save(user1);
 
         Map<Bean,Integer> orders = new HashMap<>();
         orders.put(save,3);
         orders.put(save1,3);
-        Order order1 = new Order(null,BigDecimal.valueOf(122),new OrderAddress("Jan", "Kowalski","12345","City","Wolna"),orders);
+        Order order1 = new Order(null,BigDecimal.valueOf(122),new OrderAddress("Jan", "Kowalski","12345","City","Wolna"),orders,user1);
         Map<Bean,Integer> orders2 = new HashMap<>();
         orders2.put(save2,5);
-        Order order2 = new Order(null,BigDecimal.valueOf(122),new OrderAddress("Janek", "Kowalski2","12345","Miasto","Wolna"),orders2);
+        Order order2 = new Order(null,BigDecimal.valueOf(122),new OrderAddress("Janek", "Kowalski2","12345","Miasto","Wolna"),orders2,user1);
 
         orderRepository.save(order1);
         orderRepository.save(order2);
