@@ -7,21 +7,21 @@ import AuthContext from "../../store/auth-context";
 
 const OrderList = () => {
   
-  const [orders, setOrders]= useState();
+  const [orders, setOrders]= useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError , setHttpError] = useState();
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const userToken = authCtx.token;
+     
       const response = await fetch(`http://localhost:8080/api/orders`, {
-        headers :{ Authentication : userToken
+        headers :{ Authorization : 'Bearer ' + authCtx.token
 
         },
       });
-      if (!response.ok) {
-        throw new Error("Could not fetch orders");
+      if (!response.ok) {        
+        throw new Error("Could not fetch orders");        
       }
 
       const responseData = await response.json();
@@ -45,7 +45,7 @@ const OrderList = () => {
       setIsLoading(false);
       setHttpError(error.message);
     });
-  }, []);
+  }, [authCtx.token]);
 
   if(isLoading) {
     return <section>
@@ -53,7 +53,7 @@ const OrderList = () => {
     </section>
   };
   if(httpError) {
-    return <section>
+    return <section className={classes['orders-error']}>      
       <p>{httpError}</p>
     </section>
   }

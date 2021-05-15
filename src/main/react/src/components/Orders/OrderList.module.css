@@ -8,3 +8,9 @@
 .items ul{
     padding-inline-start: 0;
 }
+
+.orders-error {
+    text-align: center;
+    color: red;
+    font-size: 2rem;
+}

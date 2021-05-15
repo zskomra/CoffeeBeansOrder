@@ -16,10 +16,6 @@ import javax.transaction.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final JwtUtils jwtUtils;
 
-    public String getUserUsername(HttpHeaders httpHeaders) {
-        String username =jwtUtils.getUserNameFromJwtToken(httpHeaders.getFirst("Authentication"));
-        return username;
     }
-}
+
