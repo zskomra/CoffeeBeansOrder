@@ -1,23 +1,41 @@
-
-import { Fragment } from "react";
-import classes from './Header.module.css';
-import HeaderLogoutButton from './HeaderLogoutButton';
-import beansImg from '../../assets/beans.jpg';
+import { Fragment, useContext } from "react";
+import classes from "./Header.module.css";
+import beansImg from "../../assets/beans.jpg";
 import HeaderCartButton from "./HeaderCartButton";
-import NavigationItems from './NavigationItems';
+import NavigationItems from "./NavigationItems";
+import { Link } from "react-router-dom";
+import AuthContext from "../../store/auth-context";
 
 const Header = (props) => {
-    return <Fragment>
-        <header className={classes.header}>
-            <h1>CoffeeBeans</h1>
-            <NavigationItems />
-            <HeaderCartButton onClick={props.onShownCart}/>
-            <HeaderLogoutButton onClick={props.onLogout}/>
-        </header>
-        <div className={classes['main-image']}>
-            <img src={beansImg} alt="beans transform"/>
+  const authCtx = useContext(AuthContext);
+  const isLogged = authCtx.isLoggIn;
+  return (
+    <Fragment>
+      <header className={classes.header}>
+        <h1>CoffeeBeans</h1>
+        <NavigationItems />
+        <div className={classes[`user-buttons`]}>
+          <HeaderCartButton onClick={props.onShownCart} />
+          <div className={classes.account}>
+            <button className={classes.accountbtn}>Account</button>
+            <div className={classes[`profile-menu`]}>
+              {!isLogged && <Link to="/auth">Login/Register</Link>}
+              {isLogged && <Link to="/orders">Your Orders</Link>}
+              {isLogged && <Link to="/profile">Profile</Link>}
+              {isLogged && (
+                <Link onClick={authCtx.logout} to="/">
+                  Logout
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
+      </header>
+      <div className={classes["main-image"]}>
+        <img src={beansImg} alt="beans transform" />
+      </div>
     </Fragment>
+  );
 };
 
 export default Header;

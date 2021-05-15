@@ -54,7 +54,7 @@ const Profile = () => {
         setIsLoading(false);
         console.log(error.message);
       });
-  }, []);
+  }, [authCtx.token]);
 
   const [value, setValue] = useState("some value");
   const confirmHandler = () => {};
