@@ -7,8 +7,10 @@ import coffee.coffeeshop.data.OrderSummary;
 import coffee.coffeeshop.model.domain.Bean;
 import coffee.coffeeshop.model.domain.Order;
 import coffee.coffeeshop.model.domain.OrderAddress;
+import coffee.coffeeshop.model.domain.user.User;
 import coffee.coffeeshop.model.repositories.BeansRepository;
 import coffee.coffeeshop.model.repositories.OrderRepository;
+import coffee.coffeeshop.model.repositories.UserRepository;
 import coffee.coffeeshop.request.AddOrderBeansRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,18 +30,22 @@ public class OrderService {
     private final OrderAddressConverter addressConverter;
     private final BeansRepository beansRepository;
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
+    private final UserService userService;
+
 
     public Long save(BeansController.AddressAndBeans userData) {
         Order order = new Order();
         OrderAddress orderAddress = addressConverter.from(userData.orderAddress);
         HashMap<Bean,Integer> orderItems = convertToOrderItemsWithAmount(userData.orderItems);
         BigDecimal totalPrice = getTotalPrice(userData.orderItems);
+        User user = userService.getUserFromToken(userData.idToken);
 
         order.setOrderAddress(orderAddress);
         order.setTotalAmount(totalPrice);
         order.setOrderItems(orderItems);
+        order.setUser(user);
         orderRepository.save(order);
-        log.info(String.valueOf(order));
         return order.getId();
     }
 

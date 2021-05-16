@@ -1,4 +1,5 @@
 import { Fragment, useContext, useState } from "react";
+import AuthContext from "../../store/auth-context";
 import CartContext from "../../store/cart-context";
 import classes from "./Cart.module.css";
 import CartItem from "./CartItem";
@@ -9,13 +10,12 @@ const Cart = (props) => {
   const cartCtx = useContext(CartContext);
   const [isCheckout, setIsCheckout] = useState();
   const [didSubmit, setDidSubmit] = useState(false);
+  const authCtx = useContext(AuthContext);
 
   const totalAmount = cartCtx.totalAmount.toFixed(2);
-  
 
   const onAddHandler = (item) => {
     cartCtx.addItem({ ...item, amount: 1 });
-   
   };
 
   const onRemoveHandler = (id) => {
@@ -30,16 +30,15 @@ const Cart = (props) => {
   const onSubmitHandler = (userData) => {
     fetch(
       // "https://coffee-beans-e3691-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
-      'http://localhost:8080/api/beans',
+      "http://localhost:8080/api/beans",
       {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          {
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idToken: authCtx.token,
           orderAddress: userData,
-          orderItems : cartCtx.items,          
-        }
-        ),
+          orderItems: cartCtx.items,
+        }),
       }
     );
     console.log(userData);

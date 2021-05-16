@@ -41,8 +41,7 @@ public class OrderController {
 
         @GetMapping()
         public ResponseEntity<?> getUserOrders() {
-                UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                String username = userDetails.getUsername();
+                 String username = userService.getLoggedUsername();
                 List<OrderSummary> orderSummaries = orderService.findUserOrders(username);
             return new ResponseEntity<>(orderSummaries,HttpStatus.OK);
 
