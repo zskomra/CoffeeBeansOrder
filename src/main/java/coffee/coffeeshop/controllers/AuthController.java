@@ -5,7 +5,7 @@ import coffee.coffeeshop.config.security.service.jwt.JwtUtils;
 import coffee.coffeeshop.model.domain.user.ERole;
 import coffee.coffeeshop.model.domain.user.Role;
 import coffee.coffeeshop.model.domain.user.User;
-import coffee.coffeeshop.model.domain.user.UserDetails;
+import coffee.coffeeshop.model.domain.user.UserInformation;
 import coffee.coffeeshop.model.repositories.RoleRepository;
 import coffee.coffeeshop.model.repositories.UserRepository;
 import coffee.coffeeshop.request.LoginRequest;
@@ -90,10 +90,10 @@ public class AuthController {
                 .username(signupRequest.getUsername())
                 .password(passwordEncoder.encode(signupRequest.getPassword()))
                 .roles(roles)
-                .userDetails(new UserDetails())
+                .userInformation(new UserInformation())
                 .build();
         userRepository.save(user);
-        log.info("Dane uzytownika : {} ",user.getUserDetails());
+        log.info("Dane uzytownika : {} ",user.getUserInformation());
         return ResponseEntity.ok(new MessageResponse("User registered!"));
 
     }

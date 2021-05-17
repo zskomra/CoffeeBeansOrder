@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -11,6 +11,7 @@ const Profile = () => {
   const postCodeInputRef = useRef();
   const cityInputRef = useRef();
   const streetInputRef = useRef();
+  const history = useHistory();
 
   const authCtx = useContext(AuthContext);
 
@@ -29,7 +30,7 @@ const Profile = () => {
       const userToken = authCtx.token;
       console.log(userToken);
       const response = await fetch("http://localhost:8080/api/profile", {
-        headers: { Authorization: 'Bearer ' + userToken },
+        headers: { Authorization: "Bearer " + userToken },
       });
 
       if (!response.ok) {
@@ -56,25 +57,63 @@ const Profile = () => {
       });
   }, [authCtx.token]);
 
-  const [value, setValue] = useState("some value");
-  const confirmHandler = () => {};
+  const confirmHandler = (event) => {
+    event.preventDefault();
+    const userToken = authCtx.token;
 
-  //todo
+    const firstNameInput = details.firstName;
+    const lastNameInput = details.lastName;
+    const postCodeInput = details.postCode;
+    const cityInput = details.city;
+    const streetInput = details.street;
+    const request = {
+      firstName: firstNameInput,
+      lastName:lastNameInput,
+      postCode:postCodeInput,
+      city:cityInput,
+      street:streetInput,
+      idToken: userToken
+    }    
+    
+    fetch("http://localhost:8080/api/profile", {
+      method: "POST",
+      body: JSON.stringify(
+        request
+      ),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userToken,
+      }
+    }).then(res => {
+      alert("Profile updated")
+      history.replace(window.location.pathname + '/updated');
+    });
+  };
+
   const changeHanlder = () => {
-    setValue(firstNameInputRef.current.value);
+    const firstNameInput = firstNameInputRef.current.value;
+    const lastNameInput = lastNameInputRef.current.value;
+    const postCodeInput = postCodeInputRef.current.value;
+    const cityInput = cityInputRef.current.value;
+    const streetInput = streetInputRef.current.value;
+    setDetails({
+      firstName: firstNameInput,
+      lastName: lastNameInput,
+      postCode: postCodeInput,
+      city: cityInput,
+      street: streetInput,
+    });    
   };
-
-  if(isLoading) {
-    return (
-      <LoadingSpinner />      
-    )
-  };
+  
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className={classes[`user-info`]}>
       <Card>
         <form className={classes.form} onSubmit={confirmHandler}>
-          <h2>User Details</h2>
+          <h2>Your Profile</h2>
           <div className={classes.control}>
             <label htmlFor="first-name">First Name</label>
             <input

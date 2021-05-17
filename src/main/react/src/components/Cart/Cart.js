@@ -28,19 +28,19 @@ const Cart = (props) => {
   };
 
   const onSubmitHandler = (userData) => {
-    fetch(
-      // "https://coffee-beans-e3691-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
-      "http://localhost:8080/api/beans",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          idToken: authCtx.token,
-          orderAddress: userData,
-          orderItems: cartCtx.items,
-        }),
-      }
-    );
+    const userToken = authCtx.token;
+    fetch("http://localhost:8080/api/beans", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userToken,
+      },
+      body: JSON.stringify({
+        idToken: authCtx.token,
+        orderAddress: userData,
+        orderItems: cartCtx.items,
+      }),
+    });
     console.log(userData);
     console.log(cartCtx.items);
     setDidSubmit(true);

@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserDetails {
+public class UserInformation {
 
     private String firstName;
     private String lastName;

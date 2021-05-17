@@ -44,7 +44,7 @@ public class User {
     private List<Order> orders = new ArrayList<>();
 
     @Embedded
-    private UserDetails userDetails;
+    private UserInformation userInformation;
 
 
 }

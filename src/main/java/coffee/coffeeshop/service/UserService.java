@@ -2,8 +2,12 @@ package coffee.coffeeshop.service;
 
 import coffee.coffeeshop.config.security.service.UserDetailsImpl;
 import coffee.coffeeshop.config.security.service.jwt.JwtUtils;
+import coffee.coffeeshop.controllers.UserController;
+import coffee.coffeeshop.converters.UserConverter;
 import coffee.coffeeshop.model.domain.user.User;
+import coffee.coffeeshop.model.domain.user.UserInformation;
 import coffee.coffeeshop.model.repositories.UserRepository;
+import coffee.coffeeshop.request.EditUserInformationRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +25,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final JwtUtils jwtUtils;
+    private final UserConverter userConverter;
 
     public String getLoggedUsername() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -38,5 +43,16 @@ public class UserService {
         return user;
 
     }
+
+    public boolean editUserInformation(EditUserInformationRequest editUserInformationRequest) {
+        try {
+            UserInformation userInformation = userConverter.fromEditUserInformationRequest(editUserInformationRequest);
+            User user = getUserFromToken(editUserInformationRequest.getIdToken());
+            user.setUserInformation(userInformation);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
+}
 

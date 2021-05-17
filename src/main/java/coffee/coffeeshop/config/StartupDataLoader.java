@@ -1,14 +1,12 @@
 package coffee.coffeeshop.config;
 
-import coffee.coffeeshop.data.OrderBeanSummary;
-import coffee.coffeeshop.data.OrderSummary;
 import coffee.coffeeshop.model.domain.Bean;
 import coffee.coffeeshop.model.domain.Order;
 import coffee.coffeeshop.model.domain.OrderAddress;
 import coffee.coffeeshop.model.domain.user.ERole;
 import coffee.coffeeshop.model.domain.user.Role;
 import coffee.coffeeshop.model.domain.user.User;
-import coffee.coffeeshop.model.domain.user.UserDetails;
+import coffee.coffeeshop.model.domain.user.UserInformation;
 import coffee.coffeeshop.model.repositories.BeansRepository;
 import coffee.coffeeshop.model.repositories.OrderRepository;
 import coffee.coffeeshop.model.repositories.RoleRepository;
@@ -19,7 +17,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import java.math.BigDecimal;
@@ -53,8 +50,8 @@ public class StartupDataLoader {
         roleRepository.save(role1);
         roleRepository.save(role2);
 
-        UserDetails userDetails = new UserDetails("Jan","Kowalski","75123","City","Wolna 1/2");
-        User user1 = new User(null, "jan@test.pl", passwordEncoder.encode("password1"),  Set.of(role2),new ArrayList<>(),userDetails);
+        UserInformation userInformation = new UserInformation("Jan","Kowalski","75123","City","Wolna 1/2");
+        User user1 = new User(null, "jan@test.pl", passwordEncoder.encode("password1"),  Set.of(role2),new ArrayList<>(), userInformation);
         userRepository.save(user1);
 
         Map<Bean,Integer> orders = new HashMap<>();
