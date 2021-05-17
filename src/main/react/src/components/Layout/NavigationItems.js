@@ -7,6 +7,10 @@ const NavigationItems = () => {
       <NavigationItem link="/" exact>
         Home
       </NavigationItem>
+      <NavigationItem link="/" exact>Beans</NavigationItem>
+      <NavigationItem link="/" exact>Appliances</NavigationItem>
+      <NavigationItem link="/" exact>Accessories</NavigationItem>
+      <NavigationItem link="/" exact>Contact</NavigationItem>
     </ul>
   );
 };

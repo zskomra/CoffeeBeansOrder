@@ -4,11 +4,11 @@ import coffee.coffeeshop.controllers.BeansController;
 import coffee.coffeeshop.converters.OrderAddressConverter;
 import coffee.coffeeshop.data.OrderBeanSummary;
 import coffee.coffeeshop.data.OrderSummary;
-import coffee.coffeeshop.model.domain.Bean;
+import coffee.coffeeshop.model.domain.Product;
 import coffee.coffeeshop.model.domain.Order;
 import coffee.coffeeshop.model.domain.OrderAddress;
 import coffee.coffeeshop.model.domain.user.User;
-import coffee.coffeeshop.model.repositories.BeansRepository;
+import coffee.coffeeshop.model.repositories.ProductRepository;
 import coffee.coffeeshop.model.repositories.OrderRepository;
 import coffee.coffeeshop.model.repositories.UserRepository;
 import coffee.coffeeshop.request.AddOrderBeansRequest;
@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.AbstractQuery;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
@@ -28,7 +27,7 @@ import java.util.*;
 public class OrderService {
 
     private final OrderAddressConverter addressConverter;
-    private final BeansRepository beansRepository;
+    private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final UserService userService;
@@ -37,7 +36,7 @@ public class OrderService {
     public Long save(BeansController.AddressAndBeans userData) {
         Order order = new Order();
         OrderAddress orderAddress = addressConverter.from(userData.orderAddress);
-        HashMap<Bean,Integer> orderItems = convertToOrderItemsWithAmount(userData.orderItems);
+        HashMap<Product,Integer> orderItems = convertToOrderItemsWithAmount(userData.orderItems);
         BigDecimal totalPrice = getTotalPrice(userData.orderItems);
         User user = userService.getUserFromToken(userData.idToken);
 
@@ -56,11 +55,11 @@ public class OrderService {
         return totalPrice;
     }
 
-    private HashMap<Bean,Integer> convertToOrderItemsWithAmount(AddOrderBeansRequest[] addOrderBeansRequest) {
-        HashMap<Bean,Integer> orderItems = new HashMap<>();
+    private HashMap<Product,Integer> convertToOrderItemsWithAmount(AddOrderBeansRequest[] addOrderBeansRequest) {
+        HashMap<Product,Integer> orderItems = new HashMap<>();
         Arrays.stream(addOrderBeansRequest)
                 .forEach(beans ->
-                        orderItems.put(beansRepository.findById(beans.getId()).orElseThrow(), beans.getAmount()));
+                        orderItems.put(productRepository.findById(beans.getId()).orElseThrow(), beans.getAmount()));
         return orderItems;
     }
 
@@ -76,7 +75,7 @@ public class OrderService {
 
     }
 
-    public List<OrderBeanSummary> convertOrderItemsToOrderItemsSummary (Map<Bean,Integer> orderItems) {
+    public List<OrderBeanSummary> convertOrderItemsToOrderItemsSummary (Map<Product,Integer> orderItems) {
         List<OrderBeanSummary> items = new ArrayList<>();
         orderItems.forEach((bean,value) -> items.add(
                 OrderBeanSummary.builder()

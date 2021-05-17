@@ -2,20 +2,19 @@ import classes from "./AvailableBeans.module.css";
 import Card from "../UI/Card";
 import BeanItem from "./BeanItem/BeanItem";
 import { useEffect, useState } from "react";
-import LoadingSpinner from '../UI/LoadingSpinner';
-
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const AvailableBeans = () => {
   const [beans, setBeans] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [httpError , setHttpError] = useState();
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
-    const fetchBeans = async() => {
-      const response = await fetch('http://localhost:8080/api/beans');
+    const fetchBeans = async () => {
+      const response = await fetch("http://localhost:8080/api/beans");
 
-      if(!response.ok) {
-        throw new Error('Ooops something get wrong!')
+      if (!response.ok) {
+        throw new Error("Ooops something get wrong!");
       }
 
       const responseData = await response.json();
@@ -26,32 +25,34 @@ const AvailableBeans = () => {
           id: responseData[key].id,
           name: responseData[key].name,
           description: responseData[key].description,
-          price : responseData[key].price
-        })
+          price: responseData[key].price,
+        });
       }
       setBeans(loadedBeans);
       setIsLoading(false);
-     
     };
 
-    
-    fetchBeans().then().catch((error) => {
-      setIsLoading(false);
-      setHttpError(error.message);
-    });
-    
+    fetchBeans()
+      .then()
+      .catch((error) => {
+        setIsLoading(false);
+        setHttpError(error.message);
+      });
+  }, []);
 
-  }, [])
-
-  if(isLoading) {
-    return <section className={classes['beans-loading']}>
-      <LoadingSpinner />
-    </section>
-  };
-  if(httpError) {
-    return <section className={classes['beans-error']}>
-      <p>{httpError}</p>
-    </section>
+  if (isLoading) {
+    return (
+      <section className={classes["beans-loading"]}>
+        <LoadingSpinner />
+      </section>
+    );
+  }
+  if (httpError) {
+    return (
+      <section className={classes["beans-error"]}>
+        <p>{httpError}</p>
+      </section>
+    );
   }
 
   const beansList = beans.map((bean) => (
@@ -64,15 +65,13 @@ const AvailableBeans = () => {
     />
   ));
 
-
   return (
     <section className={classes.beans}>
       <Card>
         <ul>{beansList}</ul>
-      </Card>      
+      </Card>
     </section>
   );
-  
 };
 
 export default AvailableBeans;

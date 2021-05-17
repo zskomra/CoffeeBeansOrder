@@ -4,7 +4,7 @@ import Beans from "./components/Beans/Beans";
 import Cart from "./components/Cart/Cart";
 import CartProvider from "./store/CartProvider";
 import OrderList from "./components/Orders/OrderList";
-import { Redirect, Route, Switch } from "react-router";
+import { Redirect, Route, Switch, useHistory } from "react-router";
 import AuthForm from "./components/Auth/AuthForm";
 import AuthContext from "./store/auth-context";
 import Profile from "./components/User/Profile";
@@ -12,8 +12,8 @@ import Profile from "./components/User/Profile";
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
   const authCtx = useContext(AuthContext);
-  console.log(authCtx.isLoggIn);
-  console.log(authCtx.token);
+  const history = useHistory();
+
 
   const logoutHandler =() => {
     authCtx.logout();
@@ -26,12 +26,17 @@ function App() {
   const hideCartHandler = () => {
     setCartIsShown(false);
   };
+
+  const redirectHandler = () => {
+    let auth = '/auth';
+    history.replace(auth);
+  };
   
   return (
     <CartProvider>
       <Fragment>
         {cartIsShown ? <Cart onHideCart={hideCartHandler} /> : ""}
-        <Header onShownCart={showCartHandler} onLogout={logoutHandler}/>
+        <Header onShownCart={showCartHandler} onLogout={logoutHandler} onAuth={redirectHandler}/>
         <main>
           <Switch>
             <Route path="/" exact>

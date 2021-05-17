@@ -2,10 +2,8 @@ package coffee.coffeeshop.controllers;
 
 import coffee.coffeeshop.config.security.service.jwt.JwtUtils;
 import coffee.coffeeshop.model.domain.*;
-import coffee.coffeeshop.model.domain.user.User;
-import coffee.coffeeshop.model.repositories.BeansRepository;
+import coffee.coffeeshop.model.repositories.ProductRepository;
 
-import coffee.coffeeshop.model.repositories.UserRepository;
 import coffee.coffeeshop.request.AddOrderAddressRequest;
 import coffee.coffeeshop.request.AddOrderBeansRequest;
 import coffee.coffeeshop.service.OrderService;
@@ -27,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BeansController {
 
-    private final BeansRepository beansRepository;
+    private final ProductRepository productRepository;
     private final OrderService orderService;
     private final JwtUtils jwtUtils;
 
@@ -35,9 +33,9 @@ public class BeansController {
 
 
     @GetMapping()
-    public ResponseEntity<List<Bean>> getBeans(){
-       List<Bean> beanList = beansRepository.findAll();
-       return ResponseEntity.ok(beanList);
+    public ResponseEntity<List<Product>> getBeans(){
+       List<Product> productList = productRepository.findAll();
+       return ResponseEntity.ok(productList);
     }
 
 
