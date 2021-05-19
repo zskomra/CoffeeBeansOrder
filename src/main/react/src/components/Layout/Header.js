@@ -3,7 +3,7 @@ import classes from "./Header.module.css";
 import beansImg from "../../assets/beans.jpg";
 import HeaderCartButton from "./HeaderCartButton";
 import NavigationItems from "./NavigationItems";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 
 const Header = (props) => {
@@ -15,8 +15,9 @@ const Header = (props) => {
         <h1>CoffeeBeans</h1>
         <NavigationItems />
         <div className={classes[`user-buttons`]}>
-          <HeaderCartButton onClick={
-            isLogged ? props.onShownCart :  props.onAuth} />
+          <HeaderCartButton
+            onClick={isLogged ? props.onShownCart : props.onAuth}
+          />
           <div className={classes.account}>
             <button className={classes.accountbtn}>Account</button>
             <div className={classes[`profile-menu`]}>

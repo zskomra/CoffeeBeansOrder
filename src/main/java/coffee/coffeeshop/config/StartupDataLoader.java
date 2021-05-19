@@ -49,6 +49,22 @@ public class StartupDataLoader {
         Product save1 = productRepository.save(product2);
         Product save2 = productRepository.save(product3);
 
+        Product appliances1 = new Product(null,"Lelit MaraX","The Lelit MaraX is an E61-type group having automatic brew temperature control that allows all users to easily pull the perfect espresso shot.",BigDecimal.valueOf(1000.90),Set.of(productCategory3));
+        Product appliances2 = new Product(null,"Oscar II","The Oscar II much like its predecessor has been built around the idea of bringing professional quality espresso into the home.",BigDecimal.valueOf(699.90),Set.of(productCategory3));
+        Product appliances3 = new Product(null,"ECM Synchronica","The ECM Synchronika is a German designed and built dual boiler espresso machine that combines rational, modern design with subtle race car inspired elements.",BigDecimal.valueOf(2000.00),Set.of(productCategory3));
+
+        productRepository.save(appliances1);
+        productRepository.save(appliances2);
+        productRepository.save(appliances3);
+
+        Product accessories1 = new Product(null,"Milk jug - PLA301M","Medium stainless steel milk jug (50cl) complete of a latte art pen.",BigDecimal.valueOf(49.90),Set.of(productCategory2));
+        Product accessories2 = new Product(null,"Filterholders  - PLA582S","LELIT58 2-ways filterholder, with Coffee Slide spout, black handle and 4 filters: 1 dose (9-11 gr), 2 doses (14-18 gr), 2 doses PLUS (18-21 gr) and blind filter.",BigDecimal.valueOf(69.90),Set.of(productCategory2));
+        Product accessories3 = new Product(null,"Cup - PL302","190 cc Lelit porcelain cappuccino cup with saucer, 6 pcs.",BigDecimal.valueOf(99.90),Set.of(productCategory2));
+
+        productRepository.save(accessories1);
+        productRepository.save(accessories2);
+        productRepository.save(accessories3);
+
         Role role1 = new Role(null, ERole.ROLE_ADMIN);
         Role role2 = new Role(null, ERole.ROLE_USER);
 

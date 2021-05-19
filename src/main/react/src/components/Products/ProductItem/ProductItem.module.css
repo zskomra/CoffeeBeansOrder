@@ -1,0 +1,40 @@
+.bean {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.7rem;
+    margin-right: 2rem;
+    padding-bottom: 1rem;
+    /* border-bottom: 2px solid #bbb; */
+    align-items: center;    
+}
+
+
+.description {
+    font-style: italic;
+}
+
+.price {
+    color: rgb(189, 5, 5);
+    font-weight:bold;
+    font-size: large;
+    margin-top: 0.4rem
+}
+
+.link {
+    display: block;
+    text-align: center;
+    line-height: 2rem;
+    background-color: brown;   
+    text-decoration: none;
+    margin-bottom: 1rem;
+    color: white;
+    width: 15%;
+    border-radius: 10px;
+
+}
+.details-link {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #bbb;
+    
+}

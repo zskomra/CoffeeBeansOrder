@@ -1,17 +1,20 @@
-import classes from "./AvailableBeans.module.css";
+import classes from "./AvailableProduct.module.css";
 import Card from "../UI/Card";
-import BeanItem from "./BeanItem/BeanItem";
+import ProductItem from "./ProductItem/ProductItem";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../UI/LoadingSpinner";
 
-const AvailableBeans = () => {
-  const [beans, setBeans] = useState([]);
+const AvailableProduct = (props) => {
+  const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
+  const productCategory = props.productName;
 
   useEffect(() => {
-    const fetchBeans = async () => {
-      const response = await fetch("http://localhost:8080/api/beans");
+    const fetchProducts = async () => {
+      const response = await fetch(
+        "http://localhost:8080/api/products/" + productCategory
+      );
 
       if (!response.ok) {
         throw new Error("Ooops something get wrong!");
@@ -19,26 +22,26 @@ const AvailableBeans = () => {
 
       const responseData = await response.json();
 
-      const loadedBeans = [];
+      const loadedProducts = [];
       for (const key in responseData) {
-        loadedBeans.push({
+        loadedProducts.push({
           id: responseData[key].id,
           name: responseData[key].name,
           description: responseData[key].description,
           price: responseData[key].price,
         });
       }
-      setBeans(loadedBeans);
+      setProducts(loadedProducts);
       setIsLoading(false);
     };
 
-    fetchBeans()
+    fetchProducts()
       .then()
       .catch((error) => {
         setIsLoading(false);
         setHttpError(error.message);
       });
-  }, []);
+  }, [productCategory]);
 
   if (isLoading) {
     return (
@@ -55,13 +58,13 @@ const AvailableBeans = () => {
     );
   }
 
-  const beansList = beans.map((bean) => (
-    <BeanItem
-      id={bean.id}
-      name={bean.name}
-      key={bean.id}
-      description={bean.description}
-      price={bean.price}
+  const beansList = products.map((product) => (
+    <ProductItem
+      id={product.id}
+      name={product.name}
+      key={product.id}
+      description={product.description}
+      price={product.price}
     />
   ));
 
@@ -74,4 +77,4 @@ const AvailableBeans = () => {
   );
 };
 
-export default AvailableBeans;
+export default AvailableProduct;

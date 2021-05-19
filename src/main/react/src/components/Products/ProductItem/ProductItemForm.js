@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import Input from "../../UI/Input";
-import classes from "./BeanItemForm.module.css";
+import classes from "./ProductItemForm.module.css";
 
-const BeanItemForm = (props) => {
+const ProductItemForm = (props) => {
   const inputAmountRef = useRef();
   const [amountIsValid, setAmountIsValid] = useState(true);
 
@@ -42,4 +42,4 @@ const BeanItemForm = (props) => {
   );
 };
 
-export default BeanItemForm;
+export default ProductItemForm;
