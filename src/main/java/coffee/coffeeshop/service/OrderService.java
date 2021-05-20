@@ -1,5 +1,6 @@
 package coffee.coffeeshop.service;
 
+import coffee.coffeeshop.controllers.OrderController;
 import coffee.coffeeshop.controllers.ProductController;
 import coffee.coffeeshop.converters.OrderAddressConverter;
 import coffee.coffeeshop.data.OrderBeanSummary;
@@ -33,7 +34,7 @@ public class OrderService {
     private final UserService userService;
 
 
-    public Long save(ProductController.AddressAndBeans userData) {
+    public Long save(OrderController.AddressAndBeans userData) {
         Order order = new Order();
         OrderAddress orderAddress = addressConverter.from(userData.orderAddress);
         HashMap<Product,Integer> orderItems = convertToOrderItemsWithAmount(userData.orderItems);

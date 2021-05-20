@@ -35,27 +35,27 @@ public class UserController {
 
     @GetMapping()
     public ResponseEntity<?> getUserDetails() {
-            UserDetailsImpl userDetailsImpl = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String username = userDetailsImpl.getUsername();
-            UserInformation userInformation = userRepository.findByUsername(username).get().getUserInformation();
-                if (userInformation == null) {
-                        userInformation = new UserInformation();
-                        userInformation.setCity("");
-                        userInformation.setFirstName("");
-                        userInformation.setLastName("");
-                        userInformation.setStreet("");
-                        userInformation.setPostCode("");
-                            }
-                return new ResponseEntity<>(userInformation, HttpStatus.OK);
-
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetailsImpl.getUsername();
+        UserInformation userInformation = userRepository.findByUsername(username).get().getUserInformation();
+        if (userInformation == null) {
+            userInformation = new UserInformation();
+            userInformation.setCity("");
+            userInformation.setFirstName("");
+            userInformation.setLastName("");
+            userInformation.setStreet("");
+            userInformation.setPostCode("");
         }
+        return new ResponseEntity<>(userInformation, HttpStatus.OK);
+
+    }
+
     @PostMapping
     public ResponseEntity<?> editUserInformation(@RequestBody EditUserInformationRequest editUserInformation) {
         Boolean isUpdateSuccessful = userService.editUserInformation(editUserInformation);
-        return new ResponseEntity<>(isUpdateSuccessful,HttpStatus.OK);
+        return new ResponseEntity<>(isUpdateSuccessful, HttpStatus.OK);
     }
 
 
-
-    }
+}
 

@@ -5,6 +5,7 @@ import coffee.coffeeshop.model.domain.*;
 import coffee.coffeeshop.model.repositories.ProductCategoryRepository;
 import coffee.coffeeshop.model.repositories.ProductRepository;
 
+import coffee.coffeeshop.request.AddNewProductRequest;
 import coffee.coffeeshop.request.AddOrderAddressRequest;
 import coffee.coffeeshop.request.AddOrderBeansRequest;
 import coffee.coffeeshop.service.OrderService;
@@ -40,30 +41,29 @@ public class ProductController {
 
 
     @GetMapping("/beans/{id}")
-    public ResponseEntity<?> getProduct(@PathVariable Long id){
+    public ResponseEntity<?> getProduct(@PathVariable Long id) {
         Optional<Product> product = productService.findProductById(id);
-        if(product.isPresent()){
+        if (product.isPresent()) {
             return ResponseEntity.ok(product.get());
-        }
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
     }
 
     @GetMapping("/products/all")
-    public ResponseEntity<List<Product>> getAllProducts(){
+    public ResponseEntity<List<Product>> getAllProducts() {
 
         List<Product> productList = productRepository.findAll();
         return ResponseEntity.ok(productList);
     }
 
     @GetMapping("/products/beans")
-    public ResponseEntity<List<Product>> getBeans(){
-            ProductCategory beans = categoryRepository.findByName(EProductCategory.BEANS).orElseThrow();
-            List<Product> productList = productRepository.findProductByProductCategories(beans);
+    public ResponseEntity<List<Product>> getBeans() {
+        ProductCategory beans = categoryRepository.findByName(EProductCategory.BEANS).orElseThrow();
+        List<Product> productList = productRepository.findProductByProductCategories(beans);
         return ResponseEntity.ok(productList);
     }
 
     @GetMapping("/products/appliances")
-    public ResponseEntity<List<Product>>getAppliances(){
+    public ResponseEntity<List<Product>> getAppliances() {
         ProductCategory appliances = categoryRepository.findByName(EProductCategory.APPLIANCES).orElseThrow();
         List<Product> productList = productRepository.findProductByProductCategories(appliances);
         log.info(String.valueOf(productList));
@@ -71,27 +71,18 @@ public class ProductController {
     }
 
     @GetMapping("/products/accessories")
-    public ResponseEntity<List<Product>>getAccessories(){
+    public ResponseEntity<List<Product>> getAccessories() {
         ProductCategory accessories = categoryRepository.findByName(EProductCategory.ACCESSORIES).orElseThrow();
         List<Product> productList = productRepository.findProductByProductCategories(accessories);
         return ResponseEntity.ok(productList);
     }
 
-
-    @PostMapping()
-    public ResponseEntity<?> saveOrderData(@Valid @RequestBody AddressAndBeans userData) {
-        log.info(userData.idToken);
-        log.info(jwtUtils.getUserNameFromJwtToken(userData.idToken));
-        Long name = orderService.save(userData);
-        return ResponseEntity.ok("ok");
+    @PostMapping("/product/add-new")
+    public ResponseEntity<?> addNewProduct(@RequestBody AddNewProductRequest productRequest) {
+        //todo check if user logged  and role is admin , add what if method failed
+        Product product = productService.addNewProduct(productRequest);
+        return ResponseEntity.ok(product);
     }
 
-
-    public static class AddressAndBeans {
-        public String idToken;
-        public AddOrderAddressRequest orderAddress;
-        public AddOrderBeansRequest[] orderItems;
-
-}
 }
 

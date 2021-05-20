@@ -29,7 +29,7 @@ const Cart = (props) => {
 
   const onSubmitHandler = (userData) => {
     const userToken = authCtx.token;
-    fetch("http://localhost:8080/api/beans", {
+    fetch("http://localhost:8080/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
