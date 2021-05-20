@@ -12,6 +12,7 @@ import ProductDetails from "./components/Products/ProductItem/ProductDetails";
 import AvailableAppliance from "./components/Products/Product/Appliances/AvailableAppliances";
 import AvailableAccessories from "./components/Products/Product/Accessories/AvailableAccessories";
 import AvailableBeans from "./components/Products/Product/Beans/AvailableBeans";
+import Contact from "./components/Contact/Contact";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -71,7 +72,10 @@ function App() {
             </Route>
             <Route path="/beans">
               <AvailableBeans />
-            </Route>            
+            </Route>
+            <Route path="/contact">
+              <Contact />
+            </Route>
           </Switch>
         </main>
       </Fragment>
