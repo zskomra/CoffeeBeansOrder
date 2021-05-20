@@ -41,8 +41,6 @@ const Cart = (props) => {
         orderItems: cartCtx.items,
       }),
     });
-    console.log(userData);
-    console.log(cartCtx.items);
     setDidSubmit(true);
     cartCtx.clearCart();
   };

@@ -8,12 +8,12 @@ import ProductItem from "./ProductItem";
 const ProductDetails = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
-  const { beanId } = params;
+  const { productId } = params;
   const [bean, setBean] = useState("");
-  console.log(beanId);
+  console.log(productId);
   useEffect(() => {
     const fetchDetails = async () => {
-      const response = await fetch("http://localhost:8080/api/beans/" + beanId);
+      const response = await fetch("http://localhost:8080/api/beans/" + productId);
 
       if (!response.ok) {
         throw new Error("Ooops something get wrong!");
@@ -36,7 +36,7 @@ const ProductDetails = (props) => {
         setIsLoading(false);
         console.log(error.message);
       });
-  }, [beanId]);
+  }, [productId]);
 
   if (isLoading) {
     return (

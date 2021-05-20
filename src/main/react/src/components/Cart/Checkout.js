@@ -38,7 +38,9 @@ const Checkout = (props) => {
         postcode: enteredPostIsValid,
         city: enteredCityIsValid,
         street: enteredStreetIsValid
-    })
+    });
+
+    
 
     const formiSValid =
       enteredFirstNameIsValid &&

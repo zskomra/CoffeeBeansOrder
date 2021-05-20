@@ -67,7 +67,7 @@ function App() {
             <Route path="/accessories">
               <AvailableAccessories />
             </Route>
-            <Route path="/beans/:beanId">
+            <Route path="/product/:productId">
               <ProductDetails />
             </Route>
             <Route path="/beans">

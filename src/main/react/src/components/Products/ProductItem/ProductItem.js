@@ -10,14 +10,14 @@ const ProductItem = (props) => {
   const [showButton, setShowButton] = useState(true);
 
   const params = useParams();
-  const { beanId } = params;
+  const { productId } = params;
 
   useEffect(() => {
-    if(beanId) {
+    if(productId) {
       setShowButton(false);
     }
     else setShowButton(true);
-  },[beanId]);
+  },[productId]);
   
   const onAddToCartHanlder = (amount) => {
     cartCtx.addItem({
@@ -42,7 +42,7 @@ const ProductItem = (props) => {
       </li>
       {showButton && (
       <div className={classes[`details-link`]}>
-      <Link className={classes.link} to={`/beans/${props.id}`} >          
+      <Link className={classes.link} to={`/product/${props.id}`} >          
         Show Details
       </Link>
       </div> )}
