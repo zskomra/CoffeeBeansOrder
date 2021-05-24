@@ -1,0 +1,38 @@
+package coffee.coffeeshop.controllers;
+
+import coffee.coffeeshop.model.domain.ProductCategory;
+import coffee.coffeeshop.model.repositories.ProductCategoryRepository;
+import coffee.coffeeshop.model.repositories.ProductRepository;
+import coffee.coffeeshop.service.ProductService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/admin")
+@CrossOrigin("*")
+@Slf4j
+@Transactional
+@RequiredArgsConstructor
+public class AdminController {
+
+    private final ProductService productService;
+    private final ProductRepository productRepository;
+    private final ProductCategoryRepository categoryRepository;
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<ProductCategory>> getAllCategories() {
+        List<ProductCategory> categories = categoryRepository.findAll();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
+
+}

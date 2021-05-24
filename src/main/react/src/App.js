@@ -13,6 +13,8 @@ import AvailableAppliance from "./components/Products/Product/Appliances/Availab
 import AvailableAccessories from "./components/Products/Product/Accessories/AvailableAccessories";
 import AvailableBeans from "./components/Products/Product/Beans/AvailableBeans";
 import Contact from "./components/Contact/Contact";
+import NewProductForm from "./components/Admin/NewProduct/NewProductForm";
+import NewProduct from "./components/Admin/NewProduct/NewProduct";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -75,6 +77,10 @@ function App() {
             </Route>
             <Route path="/contact">
               <Contact />
+            </Route>
+            <Route path="/admin/add-product">
+              {/* <NewProductForm /> */}
+              <NewProduct />
             </Route>
           </Switch>
         </main>

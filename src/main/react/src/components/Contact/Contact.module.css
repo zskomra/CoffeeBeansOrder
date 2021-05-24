@@ -1,6 +1,7 @@
 .contact-window{
     width: 55%;
     min-width: 30rem;
+    max-width: 50rem;
     margin: -5rem auto 2rem;
     position: relative;
     
