@@ -29,6 +29,7 @@ const Profile = () => {
     const fetchDetails = async () => {
       const userToken = authCtx.token;
       console.log(userToken);
+      // console.log(authCtx.roles);
       const response = await fetch("http://localhost:8080/api/profile", {
         headers: { Authorization: "Bearer " + userToken },
       });

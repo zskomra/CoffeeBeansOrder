@@ -68,6 +68,8 @@ const OrderList = () => {
     />
   ));
 
+  console.log(authCtx.roles);
+
   return (
     <section className={classes.items}>
       <ul>{ordersList}</ul>

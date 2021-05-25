@@ -20,7 +20,7 @@ const AuthForm = () => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    console.log(enteredEmail, enteredPassword);
+    
     setIsLoading(true);
     let url;
     const request = {
@@ -50,7 +50,8 @@ const AuthForm = () => {
       })
       .then((data) => {
         authCtx.login(data.token);
-        
+        console.log(data.roles);
+        authCtx.loginRoles(data.roles);
         if (isLogin) {
           history.replace("/");
         }

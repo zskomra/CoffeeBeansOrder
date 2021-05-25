@@ -1,14 +1,16 @@
 import classes from "./NewProductForm.module.css";
 import ProductCard from "../../UI/ProductCard";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import LoadindSpinner from "../../UI/LoadingSpinner";
 import NewProductSummary from "./NewProductSummary";
+import AuthContext from "../../../store/auth-context";
 
 const isPriceValidPattern = /[+-]?\d+(?:[.,]\d+)?/;
 const isEmpty = (value) => value.trim() === "";
 const isFiveChar = (value) => value.trim().length >= 5;
 
 const NewProductForm = (props) => {
+  const authCtx = useContext(AuthContext);
   const [isFormValid, setIsFormValid] = useState({
     name: true,
     price: true,
@@ -30,7 +32,9 @@ const NewProductForm = (props) => {
   useEffect(() => {
     const fetchCategories = async () => {
       const resposne = await fetch(
-        `http://localhost:8080/api/admin/categories`
+        `http://localhost:8080/api/admin/categories`, {
+          headers: { Authorization: "Bearer " + authCtx.token },
+        }
       );
       if (!resposne.ok) {
         throw new Error("Could not fetch product categories");
@@ -148,7 +152,9 @@ const NewProductForm = (props) => {
                   ref={productDescriptionRef}
                   placeholder="Enter Product Description"
                 ></textarea>
-                {!isFormValid.description && <p>Please enter valid description</p>}
+                {!isFormValid.description && (
+                  <p>Please enter valid description</p>
+                )}
               </div>
             </div>
             <div className={classes.actions}>

@@ -3,6 +3,7 @@ package coffee.coffeeshop.config.security;
 import coffee.coffeeshop.config.security.service.UserDetailsServiceImpl;
 import coffee.coffeeshop.config.security.service.jwt.AuthEntryPointJwt;
 import coffee.coffeeshop.config.security.service.jwt.AuthTokenFilter;
+import coffee.coffeeshop.model.domain.user.ERole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -65,8 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/api/contact/**").permitAll()
                 //todo change access
-                .antMatchers("/api/product/add-new").permitAll()
-                .antMatchers("/api/admin/**").permitAll()
+                .antMatchers("/api/admin/**").hasAuthority(String.valueOf(ERole.ROLE_ADMIN))
+//                .antMatchers("/api/admin/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

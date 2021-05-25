@@ -1,12 +1,18 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
+import { useHistory } from "react-router";
+import AuthContext from "../../../store/auth-context";
 import NewProductForm from "./NewProductForm";
 
 const NewProduct = () => {
+  const history = useHistory();
+  const authCtx =  useContext(AuthContext);
+
   const addProductHanlder = (productData) => {
     fetch("http://localhost:8080/api/admin/product/add-new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + authCtx.token,
       },
       body: JSON.stringify({
         name: productData.name,
@@ -14,8 +20,23 @@ const NewProduct = () => {
         price: productData.price,
         productCategory: productData.category,
       }),
+    }).then((response) =>{
+      if(response.ok) {
+        return response.json().then((data) => {
+          let message = data.message;
+          console.log(data);
+          alert(message);
+          history.replace("/admin/add-product/added-status?=ok")
+        });        
+      }
+      else {
+        return response.json().then((data) =>{
+          let error = data.message;
+          alert(error);
+        });
+      }
     });
-    console.log("send");
+    
   };
 
   return (

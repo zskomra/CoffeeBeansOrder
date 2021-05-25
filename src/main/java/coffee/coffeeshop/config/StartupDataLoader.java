@@ -74,6 +74,8 @@ public class StartupDataLoader {
         UserInformation userInformation = new UserInformation("Jan","Kowalski","75123","City","Wolna 1/2");
         User user1 = new User(null, "jan@test.pl", passwordEncoder.encode("password1"),  Set.of(role2),new ArrayList<>(), userInformation);
         userRepository.save(user1);
+        User user2 = new User(null,"admin@admin.pl", passwordEncoder.encode("admin"),Set.of(role1),new ArrayList<>(),userInformation );
+        userRepository.save(user2);
 
         Map<Product,Integer> orders = new HashMap<>();
         orders.put(save,3);

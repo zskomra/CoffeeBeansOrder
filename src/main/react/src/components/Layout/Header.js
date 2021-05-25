@@ -9,6 +9,7 @@ import AuthContext from "../../store/auth-context";
 const Header = (props) => {
   const authCtx = useContext(AuthContext);
   const isLogged = authCtx.isLoggIn;
+  const isAdmin = authCtx.isAdmin;
   return (
     <Fragment>
       <header className={classes.header}>
@@ -22,13 +23,14 @@ const Header = (props) => {
             <button className={classes.accountbtn}>Account</button>
             <div className={classes[`profile-menu`]}>
               {!isLogged && <Link to="/auth">Login/Register</Link>}
-              {isLogged && <Link to="/orders">Your Orders</Link>}
-              {isLogged && <Link to="/profile">Profile</Link>}
+              {!isAdmin && isLogged && <Link to="/orders">Your Orders</Link>}
+              {!isAdmin && isLogged && <Link to="/profile">Profile</Link>}
               {isLogged && (
                 <Link onClick={authCtx.logout} to="/">
                   Logout
                 </Link>
               )}
+              {isAdmin && <Link to="/admin/add-product">Add product</Link>}
             </div>
           </div>
         </div>

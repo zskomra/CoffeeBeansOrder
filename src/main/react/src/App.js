@@ -20,6 +20,8 @@ function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
   const authCtx = useContext(AuthContext);
   const history = useHistory();
+  
+  console.log(authCtx.isAdmin);
 
   const logoutHandler = () => {
     authCtx.logout();
@@ -78,10 +80,9 @@ function App() {
             <Route path="/contact">
               <Contact />
             </Route>
-            <Route path="/admin/add-product">
-              {/* <NewProductForm /> */}
-              <NewProduct />
-            </Route>
+            <Route path="/admin/add-product">            
+              {authCtx.isAdmin && <NewProduct />}
+            </Route>            
           </Switch>
         </main>
       </Fragment>
