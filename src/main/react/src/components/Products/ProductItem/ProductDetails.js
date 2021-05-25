@@ -10,7 +10,7 @@ const ProductDetails = (props) => {
   const params = useParams();
   const { productId } = params;
   const [bean, setBean] = useState("");
-  console.log(productId);
+  
   useEffect(() => {
     const fetchDetails = async () => {
       const response = await fetch("http://localhost:8080/api/beans/" + productId);

@@ -1,24 +1,26 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import NewProductForm from "./NewProductForm";
-import NewProductSummary from "./NewProductSummary";
 
 const NewProduct = () => {
-  const [showSummary, setShowSummary] = useState(false);
-  const hideSummaryHanlder = () => {
-    setShowSummary((previousState) => !previousState);
-  };
-
   const addProductHanlder = (productData) => {
-      console.log(productData);
+    fetch("http://localhost:8080/api/admin/product/add-new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: productData.name,
+        description: productData.description,
+        price: productData.price,
+        productCategory: productData.category,
+      }),
+    });
+    console.log("send");
   };
 
   return (
     <Fragment>
-      <NewProductForm
-        onClick={hideSummaryHanlder}
-        onConfirm={addProductHanlder}
-      />
-      {showSummary && <NewProductSummary />}
+      <NewProductForm onConfirm={addProductHanlder} />
     </Fragment>
   );
 };

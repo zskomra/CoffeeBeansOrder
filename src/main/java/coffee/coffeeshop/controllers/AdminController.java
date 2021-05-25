@@ -1,17 +1,16 @@
 package coffee.coffeeshop.controllers;
 
+import coffee.coffeeshop.model.domain.Product;
 import coffee.coffeeshop.model.domain.ProductCategory;
 import coffee.coffeeshop.model.repositories.ProductCategoryRepository;
 import coffee.coffeeshop.model.repositories.ProductRepository;
+import coffee.coffeeshop.request.AddNewProductRequest;
 import coffee.coffeeshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -25,13 +24,20 @@ import java.util.List;
 public class AdminController {
 
     private final ProductService productService;
-    private final ProductRepository productRepository;
     private final ProductCategoryRepository categoryRepository;
 
     @GetMapping("/categories")
     public ResponseEntity<List<ProductCategory>> getAllCategories() {
         List<ProductCategory> categories = categoryRepository.findAll();
         return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
+    @PostMapping("/product/add-new")
+    public ResponseEntity<?> addNewProduct(@RequestBody AddNewProductRequest productRequest) {
+        log.info(String.valueOf(productRequest));
+        //todo check if user logged  and role is admin , add what if method failed
+        Product product = productService.addNewProduct(productRequest);
+        return ResponseEntity.ok(product);
     }
 
 
