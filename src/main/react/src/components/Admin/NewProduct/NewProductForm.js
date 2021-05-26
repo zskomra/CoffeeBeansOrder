@@ -57,7 +57,7 @@ const NewProductForm = (props) => {
       .catch((error) => {
         setIsLoading(false);
       });
-  }, []);
+  }, [authCtx.token]);
 
   if (isLoading) {
     return (

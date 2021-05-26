@@ -17,7 +17,8 @@ const Header = (props) => {
         <NavigationItems />
         <div className={classes[`user-buttons`]}>
           <HeaderCartButton
-            onClick={isLogged ? props.onShownCart : props.onAuth}
+            onClick={props.onShownCart}
+            // onClick={isLogged ? props.onShownCart : props.onAuth}
           />
           <div className={classes.account}>
             <button className={classes.accountbtn}>Account</button>

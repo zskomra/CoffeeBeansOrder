@@ -11,6 +11,7 @@ const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState();
   const [didSubmit, setDidSubmit] = useState(false);
   const authCtx = useContext(AuthContext);
+  const isLogged = authCtx.isLoggIn;
 
   const totalAmount = cartCtx.totalAmount.toFixed(2);
 
@@ -75,7 +76,7 @@ const Cart = (props) => {
         >
           Cancel
         </button>
-        <button onClick={onCheckoutHanlder} className={classes.button}>
+        <button onClick={isLogged ? onCheckoutHanlder : props.onAuth} className={classes.button}>
           Order
         </button>
       </div>

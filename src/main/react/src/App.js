@@ -13,14 +13,14 @@ import AvailableAppliance from "./components/Products/Product/Appliances/Availab
 import AvailableAccessories from "./components/Products/Product/Accessories/AvailableAccessories";
 import AvailableBeans from "./components/Products/Product/Beans/AvailableBeans";
 import Contact from "./components/Contact/Contact";
-import NewProductForm from "./components/Admin/NewProduct/NewProductForm";
 import NewProduct from "./components/Admin/NewProduct/NewProduct";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
   const authCtx = useContext(AuthContext);
   const history = useHistory();
-  
+
   console.log(authCtx.isAdmin);
 
   const logoutHandler = () => {
@@ -36,6 +36,7 @@ function App() {
   };
 
   const redirectHandler = () => {
+    setCartIsShown(false);
     let auth = "/auth";
     history.replace(auth);
   };
@@ -43,12 +44,12 @@ function App() {
   return (
     <CartProvider>
       <Fragment>
-        {cartIsShown ? <Cart onHideCart={hideCartHandler} /> : ""}
-        <Header
-          onShownCart={showCartHandler}
-          onLogout={logoutHandler}
-          onAuth={redirectHandler}
-        />
+        {cartIsShown ? (
+          <Cart onAuth={redirectHandler} onHideCart={hideCartHandler} />
+        ) : (
+          ""
+        )}
+        <Header onShownCart={showCartHandler} onLogout={logoutHandler} />
         <main>
           <Switch>
             <Route path="/" exact>
@@ -80,9 +81,12 @@ function App() {
             <Route path="/contact">
               <Contact />
             </Route>
-            <Route path="/admin/add-product">            
+            <Route path="/admin/add-product">
               {authCtx.isAdmin && <NewProduct />}
-            </Route>            
+            </Route>
+            <Route path='*'>
+              <NotFound/>
+            </Route>
           </Switch>
         </main>
       </Fragment>

@@ -7,7 +7,6 @@ const Contact = () => {
   const inputEmailRef = useRef();
   const inputTitleRef = useRef();
   const inputDescriptionRef = useRef();
-  const [isSending, setIsSending] = useState();
   const [didSend, setDidSend] = useState(false);
 
   const confirmHanlder = (event) => {

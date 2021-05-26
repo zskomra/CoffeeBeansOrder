@@ -1,5 +1,4 @@
-import ProductItem from "../../Products/ProductItem/ProductItem";
-import ProductItemForm from "../../Products/ProductItem/ProductItemForm";
+
 import ProductCard from "../../UI/ProductCard";
 import classes from "../../Products/ProductItem/ProductItem.module.css";
 
