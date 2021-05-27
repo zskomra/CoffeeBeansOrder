@@ -83,10 +83,10 @@ public class StartupDataLoader {
         Order order1 = new Order(null,BigDecimal.valueOf(122),new OrderAddress("Jan", "Kowalski","12345","City","Wolna"),orders,user1);
         Map<Product,Integer> orders2 = new HashMap<>();
         orders2.put(save2,5);
-        Order order2 = new Order(null,BigDecimal.valueOf(122),new OrderAddress("Janek", "Kowalski2","12345","Miasto","Wolna"),orders2,user1);
-
-        orderRepository.save(order1);
+        Order order2 = new Order(null,BigDecimal.valueOf(124),new OrderAddress("Janek", "Kowalski2","12345","Miasto","Wolna"),orders2,user1);
         orderRepository.save(order2);
+        orderRepository.save(order1);
+
 
 
     }

@@ -3,12 +3,16 @@ import OrderSummary from "./OrderSummary";
 import { useContext, useEffect, useState } from "react";
 import LoadindSpinner from "../UI/LoadingSpinner";
 import AuthContext from "../../store/auth-context";
+import { sortList } from "../../services/sort-service";
+import SortSelect from "../UI/SortSelect";
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
   const authCtx = useContext(AuthContext);
+
+  const [sortType, setSortType] = useState("totalPriceDes");
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -43,6 +47,21 @@ const OrderList = () => {
       });
   }, [authCtx.token]);
 
+  useEffect(() => {
+    const sortArray = (type) => {
+      const types = {
+        totalPriceAsc: { value: "totalPrice", asc: true },
+        totalPriceDes: { value: "totalPrice", asc: false },
+      };
+      const ascending = types[type].asc;
+      const sortBy = types[type].value;
+      const sortedList = sortList([...orders], ascending, sortBy);
+      setOrders(sortedList);
+    };    
+      sortArray(sortType);
+    
+  }, [sortType]);
+
   if (isLoading) {
     return (
       <section>
@@ -68,10 +87,14 @@ const OrderList = () => {
     />
   ));
 
-  console.log(authCtx.roles);
-
   return (
     <section className={classes.items}>
+      <SortSelect>
+        <select onChange={(e) => setSortType(e.target.value)}>
+          <option value="totalPriceAsc">Sort by totalprice ascending</option>
+          <option value="totalPriceDes">Sort by totalprice descending</option>
+        </select>
+      </SortSelect>
       <ul>{ordersList}</ul>
     </section>
   );

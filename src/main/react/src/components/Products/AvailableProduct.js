@@ -3,11 +3,16 @@ import Card from "../UI/Card";
 import ProductItem from "./ProductItem/ProductItem";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import { sortList } from "../../services/sort-service";
+import SortSelect from "../UI/SortSelect";
 
 const AvailableProduct = (props) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
+  const [sortType, setSortType] = useState("priceAsc");
+  // const [sortedProducts, setSortedProducts] = useState([]);
+
   const productCategory = props.productName;
 
   useEffect(() => {
@@ -43,6 +48,27 @@ const AvailableProduct = (props) => {
       });
   }, [productCategory]);
 
+  useEffect(() => {
+    const sortArray = (type) => {
+      const types = {
+        priceAsc: { value: "price", asc: true },
+        priceDes: { value: "price", asc: false },
+        nameAsc: {value: 'name', asc: true},
+        nameDes: {value: 'name', asc: false}
+      };
+      const ascending = types[type].asc;
+      const sortBy = types[type].value;      
+      const sorted = sortList([...products], ascending, sortBy);
+      setProducts(sorted);
+      return sorted;
+      // setSortedProducts(sorted);
+    };
+    sortArray(sortType);
+    
+    
+  }, [sortType]);
+ 
+
   if (isLoading) {
     return (
       <section className={classes["beans-loading"]}>
@@ -58,6 +84,11 @@ const AvailableProduct = (props) => {
     );
   }
 
+  const onChangeHanlder = (event) => {
+    event.preventDefault();
+    setSortType(event.target.value);
+  }
+
   const beansList = products.map((product) => (
     <ProductItem
       id={product.id}
@@ -70,6 +101,14 @@ const AvailableProduct = (props) => {
 
   return (
     <section className={classes.beans}>
+      <SortSelect>
+        <select onChange={onChangeHanlder}>
+          <option value="priceAsc">Sort by price ascending</option>
+          <option value="priceDes">Sort by price descending</option>
+          <option value="nameAsc">Sort by name ascending</option>
+          <option value="nameDes">Sort by name descending</option>
+        </select>
+      </SortSelect>
       <Card>
         <ul>{beansList}</ul>
       </Card>
