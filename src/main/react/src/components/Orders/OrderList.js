@@ -5,14 +5,29 @@ import LoadindSpinner from "../UI/LoadingSpinner";
 import AuthContext from "../../store/auth-context";
 import { sortList } from "../../services/sort-service";
 import SortSelect from "../UI/SortSelect";
+import { useHistory, useLocation } from "react-router";
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
   const authCtx = useContext(AuthContext);
+  const [sortType, setSortType] = useState("totalPriceAsc");
 
-  const [sortType, setSortType] = useState("totalPriceDes");
+  const history = useHistory();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const currentParam = queryParams.get("sort");
+
+  const onChangeSelectHanlder = (event) => {
+    event.preventDefault();
+    const selectedParam = event.target.value;
+    setSortType(selectedParam);
+    history.push({
+      pathname: location.pathname,
+      search: `sort=${selectedParam}`
+    });
+  };
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -58,9 +73,12 @@ const OrderList = () => {
       const sortedList = sortList([...orders], ascending, sortBy);
       setOrders(sortedList);
     };    
-      sortArray(sortType);
-    
-  }, [sortType]);
+      !isLoading && sortArray(currentParam? currentParam : sortType);
+      !currentParam && history.push({
+        pathname: location.pathname,
+        search: `?sort=${sortType}`
+      });
+  }, [sortType, isLoading,currentParam]);
 
   if (isLoading) {
     return (
@@ -87,10 +105,12 @@ const OrderList = () => {
     />
   ));
 
+  
+
   return (
     <section className={classes.items}>
       <SortSelect>
-        <select onChange={(e) => setSortType(e.target.value)}>
+        <select defaultValue={currentParam ? currentParam : sortType} onChange={onChangeSelectHanlder}>
           <option value="totalPriceAsc">Sort by totalprice ascending</option>
           <option value="totalPriceDes">Sort by totalprice descending</option>
         </select>
