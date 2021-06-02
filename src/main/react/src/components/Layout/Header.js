@@ -5,6 +5,8 @@ import HeaderCartButton from "./HeaderCartButton";
 import NavigationItems from "./NavigationItems";
 import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
+import { SearchBar } from "./Search/SearchBar";
+
 
 const Header = (props) => {
   const authCtx = useContext(AuthContext);
@@ -14,6 +16,7 @@ const Header = (props) => {
     <Fragment>
       <header className={classes.header}>
         <h1>CoffeeBeans</h1>
+        <SearchBar />
         <NavigationItems />
         <div className={classes[`user-buttons`]}>
           <HeaderCartButton

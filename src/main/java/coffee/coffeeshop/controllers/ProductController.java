@@ -77,7 +77,14 @@ public class ProductController {
         return ResponseEntity.ok(productList);
     }
 
-
-
+    @GetMapping("products/{query}")
+    public ResponseEntity<?> getProductsFromQuery(@PathVariable String query) {
+        log.info(query);
+        String paramToFind = query.toLowerCase();
+        List<Product> allByNameContaining = productRepository.findAllProductsContainingParam(paramToFind);
+        log.info(String.valueOf(allByNameContaining.size()));
+        log.info(String.valueOf(allByNameContaining));
+        return new ResponseEntity<>(allByNameContaining, HttpStatus.OK);
+    }
 }
 
