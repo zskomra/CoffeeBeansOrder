@@ -8,14 +8,14 @@ import { useDebounce } from "../../../hooks/useDebounce";
 import { Link } from "react-router-dom";
 
 export function SearchBar(props) {
-  //important
+  
   const [isExpanded, setIsExpanded] = useState(false);
-  const [error, setError] = useState(null);
-  //in use
   const [searchQuery, setSearchQuery] = useState("");
-  const [noProducts, setNoProducts] = useState(false);
-  //to use
   const [products, setProducts] = useState([]);
+
+  //to use
+  const [error, setError] = useState(null);
+  const [noProducts, setNoProducts] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const inputRef = useRef();
@@ -108,6 +108,7 @@ export function SearchBar(props) {
           </div>
         )}
       </div>
+      
       {isExpanded && !isEmpty &&(
         <div className={classes[`search-content`]}>{showProducts}</div>
       )}

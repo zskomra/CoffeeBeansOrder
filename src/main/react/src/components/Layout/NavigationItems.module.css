@@ -8,3 +8,8 @@
     align-items: center;
 }
 
+@media screen and (max-width: 1200px) {
+    .NavigationItems{
+        display: none;
+    }
+}

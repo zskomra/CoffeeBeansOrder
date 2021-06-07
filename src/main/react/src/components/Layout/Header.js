@@ -6,6 +6,9 @@ import NavigationItems from "./NavigationItems";
 import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import { SearchBar } from "./Search/SearchBar";
+import NavigationItem from "./NavigationItem";
+import SideDrawer from "./SideDrawer/SideDrawer";
+
 
 
 const Header = (props) => {
@@ -15,8 +18,9 @@ const Header = (props) => {
   return (
     <Fragment>
       <header className={classes.header}>
+        <SideDrawer/>
         <h1>CoffeeBeans</h1>
-        <SearchBar />
+        <SearchBar />        
         <NavigationItems />
         <div className={classes[`user-buttons`]}>
           <HeaderCartButton

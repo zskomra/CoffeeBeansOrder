@@ -9,6 +9,7 @@
   background-color: brown;
   padding: 0 5%;
   z-index: 10;
+  
 }
 
 .user-buttons {
@@ -88,3 +89,4 @@
 .account:hover .accountbtn {
     background-color: rgb(179, 103, 103);
 }
+
