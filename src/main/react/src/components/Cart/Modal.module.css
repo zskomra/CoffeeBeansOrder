@@ -12,14 +12,16 @@
   position: fixed;
   background-color: white;
   top: 20vh ;
-  left: 30%;
-  width: 40%;
+  left: 5%;    
+  width: 90%;
+  max-width: 50rem;
   border-radius: 20px;
   padding: 1rem;
   z-index: 30;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   max-height: 30rem;
   animation: slide-down 300ms ease-out forwards;
+  
 }
 
 @keyframes slide-down {
@@ -33,3 +35,18 @@
   }
 }
 
+@media (min-width: 768px) {
+  .modal {
+    width: 30rem;
+    left: calc(50% - 20rem);
+
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .modal{
+    left: 0;
+  
+  }
+  
+}

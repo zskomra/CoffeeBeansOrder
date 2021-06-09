@@ -3,6 +3,7 @@
   color: white;
   text-align: center;
   max-width: 1148px;  
+  position: relative;
 }
 .wrapper {
   display: flex;

@@ -3,6 +3,7 @@
     display: flex;
     margin-bottom: 0.6rem;
     align-items: center;
+    justify-content: center;
 }
 
 .input label {
@@ -17,3 +18,4 @@
     border-radius: 4px;
     border: 1px solid black;
 }
+

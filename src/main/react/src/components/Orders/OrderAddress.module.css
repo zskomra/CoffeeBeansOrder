@@ -13,8 +13,25 @@
     font-size: large;
     
 }
+.details label{       
+    min-width: 110px;
+    text-align: start;
+}
+
 
 .total-price {
     padding-top: 1rem;
     color: red;
+}
+
+@media screen and (max-width: 900px) {
+    .address {
+        width: 100%;
+        margin: auto;
+    
+    }
+    .details label{       
+        min-width: 110px;
+        text-align: start;
+    }
 }

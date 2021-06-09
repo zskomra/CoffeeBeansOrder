@@ -1,5 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
-import Modal from "../../Cart/Modal";
+import { Fragment, useState } from "react";
 import NavigationItem from "../NavigationItem";
 import classes from "./SideDrawer.module.css";
 import { FaBars, FaTimes } from "react-icons/fa";

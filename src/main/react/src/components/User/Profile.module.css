@@ -3,6 +3,7 @@
   width: 80%;
   margin: auto;
   display: flex;
+  
   flex-direction: column;
   text-align: center;
 }
@@ -66,8 +67,17 @@
     color: rgb(250, 250, 250);
 }
 
-/* .details-loading {
-  text-align: center;
-  color: white;
-  font-size: 2rem;
-} */
+@media screen and (max-width: 800px) {
+  .control {
+    width: 100%;
+    
+  }
+  
+}
+
+@media screen and (max-width: 500px) {
+  .control {
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+}

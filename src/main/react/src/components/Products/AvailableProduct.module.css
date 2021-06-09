@@ -20,3 +20,11 @@
     color: red;
     font-size: 2rem;
 }
+
+@media screen and (max-width: 500px) {
+    .beans ul {
+        padding-inline-start: 10px;
+    }
+    
+}
+

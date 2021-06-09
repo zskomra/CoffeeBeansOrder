@@ -6,6 +6,8 @@
     border-bottom: 2px solid #bbb;
     align-items: center;
     margin: 0.7rem 0;
+    width: 100%;
+    
 }
 
 .item-info {

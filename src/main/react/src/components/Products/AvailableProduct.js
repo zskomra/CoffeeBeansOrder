@@ -1,7 +1,7 @@
 import classes from "./AvailableProduct.module.css";
 import Card from "../UI/Card";
 import ProductItem from "./ProductItem/ProductItem";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import { sortList } from "../../services/sort-service";
 import SortSelect from "../UI/SortSelect";

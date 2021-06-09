@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import useFetchLogged from "../../hooks/useFetchLogged";
 import AuthContext from "../../store/auth-context";
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -12,10 +13,7 @@ const Profile = () => {
   const cityInputRef = useRef();
   const streetInputRef = useRef();
   const history = useHistory();
-
   const authCtx = useContext(AuthContext);
-
-  const [isLoading, setIsLoading] = useState(true);
 
   const [details, setDetails] = useState({
     firstName: "",
@@ -25,38 +23,24 @@ const Profile = () => {
     street: "",
   });
 
+  const {
+    error,
+    isLoading,
+    data: address,
+  } = useFetchLogged("http://localhost:8080/api/profile");
+
   useEffect(() => {
-    const fetchDetails = async () => {
-      const userToken = authCtx.token;
-      console.log(userToken);
-      // console.log(authCtx.roles);
-      const response = await fetch("http://localhost:8080/api/profile", {
-        headers: { Authorization: "Bearer " + userToken },
-      });
-
-      if (!response.ok) {
-        throw new Error("Ooops something get wrong!");
-      }
-
-      const responseData = await response.json();
-
+    if (address) {
       const loadedDetails = {
-        firstName: responseData.firstName,
-        lastName: responseData.lastName,
-        postCode: responseData.postCode,
-        city: responseData.city,
-        street: responseData.street,
+        firstName: address.firstName,
+        lastName: address.lastName,
+        postCode: address.postCode,
+        city: address.city,
+        street: address.street,
       };
       setDetails(loadedDetails);
-      setIsLoading(false);
-    };
-    fetchDetails()
-      .then()
-      .catch((error) => {
-        setIsLoading(false);
-        console.log(error.message);
-      });
-  }, [authCtx.token]);
+    }
+  }, [address]);
 
   const confirmHandler = (event) => {
     event.preventDefault();
@@ -108,6 +92,9 @@ const Profile = () => {
   
   if (isLoading) {
     return <LoadingSpinner />;
+  }
+  if(error) {
+    return <div>{error}</div>
   }
 
   return (

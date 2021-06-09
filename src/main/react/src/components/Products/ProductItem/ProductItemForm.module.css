@@ -18,3 +18,10 @@
 .form button:active {
     background-color: rgb(168, 48, 27);
 }
+
+@media screen and (max-width: 500px){
+    .form {
+        text-align: center;
+        padding: 1rem;
+    }
+}

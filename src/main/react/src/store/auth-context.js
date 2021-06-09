@@ -19,7 +19,7 @@ export const AuthContextProvider = (props) => {
   const [roles, setRoles] = useState(initialRoles);
   
   const userIsLoggedIn = !!token;
-  const userIsAdmin = roles.includes("ROLE_ADMIN");
+  const userIsAdmin = roles && !!roles.includes("ROLE_ADMIN");
 
   const logoutHandler = () => {
     setToken(null);

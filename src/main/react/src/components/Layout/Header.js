@@ -3,10 +3,9 @@ import classes from "./Header.module.css";
 import beansImg from "../../assets/beans.jpg";
 import HeaderCartButton from "./HeaderCartButton";
 import NavigationItems from "./NavigationItems";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import { SearchBar } from "./Search/SearchBar";
-import NavigationItem from "./NavigationItem";
 import SideDrawer from "./SideDrawer/SideDrawer";
 
 const Header = (props) => {
@@ -33,7 +32,7 @@ const Header = (props) => {
   return (
     <Fragment>
       <header className={classes.header}>
-        <h1>CoffeeBeans</h1>
+        <NavLink className={classes[`main-link`]} to="/"><h1>CoffeeBeans</h1></NavLink>
         {!searchBarBotNav && <SearchBar /> }
         <div className={classes[`user-buttons`]}>
           <HeaderCartButton

@@ -12,8 +12,14 @@
   box-sizing: border-box;
   
 }
+.main-link {
+  text-decoration: none;
+  color: white;
+}
+
 .header h1 {
   text-align: center;
+  
 }
 .header-bot{
   display: flex;

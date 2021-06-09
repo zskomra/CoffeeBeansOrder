@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../../UI/LoadingSpinner";
 
 export function SearchBar(props) {
   
@@ -49,7 +50,7 @@ export function SearchBar(props) {
     setIsLoading(true);
     setNoProducts(false);
     let url = `http://localhost:8080/api/products/${searchQuery}`;
-    const response = await fetch(url)
+    await fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw Error("Could not fetch the data for that resource");
@@ -77,6 +78,8 @@ export function SearchBar(props) {
   };
 
   useDebounce(searchQuery, 1000, searchProducts);
+
+ 
 
   const showProducts = products.map((product) => (
     <Link
@@ -110,7 +113,8 @@ export function SearchBar(props) {
       </div>
       
       {isExpanded && !isEmpty &&(
-        <div className={classes[`search-content`]}>{showProducts}</div>
+        <div className={classes[`search-content`]}>
+          {isLoading ? <LoadingSpinner /> : showProducts}</div>
       )}
     </div>
   );
