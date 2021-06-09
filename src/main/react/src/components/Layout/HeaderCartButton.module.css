@@ -31,3 +31,8 @@
   
 }
 
+@media screen and (max-width:450px) {
+  .badge, .text {
+    display: none;
+  }
+}

@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import classes from "./Header.module.css";
 import beansImg from "../../assets/beans.jpg";
 import HeaderCartButton from "./HeaderCartButton";
@@ -9,19 +9,32 @@ import { SearchBar } from "./Search/SearchBar";
 import NavigationItem from "./NavigationItem";
 import SideDrawer from "./SideDrawer/SideDrawer";
 
-
-
 const Header = (props) => {
   const authCtx = useContext(AuthContext);
   const isLogged = authCtx.isLoggIn;
   const isAdmin = authCtx.isAdmin;
+  const [searchBarBotNav, setSearchBarBotNav] = useState(false);
+
+  const showSearchBarInBotNavHandler = () => {
+    if (window.innerWidth < 810) {
+      setSearchBarBotNav(true);
+    } else {
+      setSearchBarBotNav(false);
+    }
+  };
+
+  useEffect(() => {
+    showSearchBarInBotNavHandler();
+      
+  }, []);
+
+  window.addEventListener("resize", showSearchBarInBotNavHandler);
+
   return (
     <Fragment>
       <header className={classes.header}>
-        <SideDrawer/>
         <h1>CoffeeBeans</h1>
-        <SearchBar />        
-        <NavigationItems />
+        {!searchBarBotNav && <SearchBar /> }
         <div className={classes[`user-buttons`]}>
           <HeaderCartButton
             onClick={props.onShownCart}
@@ -43,6 +56,12 @@ const Header = (props) => {
           </div>
         </div>
       </header>
+      <div className={classes[`header-bot`]}>
+        <SideDrawer />
+        <NavigationItems />
+        {searchBarBotNav && <SearchBar />}
+        
+      </div>
       <div className={classes["main-image"]}>
         <img src={beansImg} alt="beans transform" />
       </div>

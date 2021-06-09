@@ -2,6 +2,7 @@
     
     display:flex;
     min-width: 270px;
+    width: 30%;
     height: 80%;
     margin: 0 2rem;
     flex-direction: column;
@@ -59,12 +60,13 @@
     flex-direction: column;
     overflow-y: auto;
     width: 100%;
-    max-width: 270px;
     min-height: 10rem;
     height: 100%;
     background-color: white;
     color: black;
     border-radius: 0 0 6px 6px;   
+    z-index: 20;
+    border: 1px solid black;
     
 }
 
