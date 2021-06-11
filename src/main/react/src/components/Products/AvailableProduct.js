@@ -33,7 +33,7 @@ const AvailableProduct = (props) => {
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch(
-        "http://localhost:8080/api/products/" + productCategory
+        "/api/products/" + productCategory
       );
 
       if (!response.ok) {

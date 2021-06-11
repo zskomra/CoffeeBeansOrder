@@ -16,7 +16,7 @@ const Contact = () => {
       topic: inputTitleRef.current.value,
       description: inputDescriptionRef.current.value,
     };
-    fetch("http://localhost:8080/api/contact", {
+    fetch("/api/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -49,7 +49,7 @@ export function SearchBar(props) {
     if (!searchQuery || searchQuery.trim() === "") return;
     setIsLoading(true);
     setNoProducts(false);
-    let url = `http://localhost:8080/api/products/${searchQuery}`;
+    let url = `/api/products/${searchQuery}`;
     await fetch(url)
       .then((response) => {
         if (!response.ok) {

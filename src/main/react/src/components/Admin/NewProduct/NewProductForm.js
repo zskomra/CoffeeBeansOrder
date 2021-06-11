@@ -32,7 +32,7 @@ const NewProductForm = (props) => {
   useEffect(() => {
     const fetchCategories = async () => {
       const resposne = await fetch(
-        `http://localhost:8080/api/admin/categories`, {
+        `/api/admin/categories`, {
           headers: { Authorization: "Bearer " + authCtx.token },
         }
       );

@@ -13,7 +13,7 @@ const ProductDetails = (props) => {
   
   useEffect(() => {
     const fetchDetails = async () => {
-      const response = await fetch("http://localhost:8080/api/beans/" + productId);
+      const response = await fetch("/api/beans/" + productId);
 
       if (!response.ok) {
         throw new Error("Ooops something get wrong!");

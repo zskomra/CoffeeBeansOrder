@@ -31,7 +31,7 @@ const OrderList = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const response = await fetch(`http://localhost:8080/api/orders`, {
+      const response = await fetch(`/api/orders`, {
         headers: { Authorization: "Bearer " + authCtx.token },
       });
       if (!response.ok) {

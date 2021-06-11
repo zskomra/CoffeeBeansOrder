@@ -27,7 +27,7 @@ const Profile = () => {
     error,
     isLoading,
     data: address,
-  } = useFetchLogged("http://localhost:8080/api/profile");
+  } = useFetchLogged("/api/profile");
 
   useEffect(() => {
     if (address) {
@@ -60,7 +60,7 @@ const Profile = () => {
       idToken: userToken
     }    
     
-    fetch("http://localhost:8080/api/profile", {
+    fetch("/api/profile", {
       method: "POST",
       body: JSON.stringify(
         request

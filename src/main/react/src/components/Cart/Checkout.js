@@ -32,7 +32,7 @@ const Checkout = (props) => {
     error,
     isLoading,
     data: address,
-  } = useFetchLogged("http://localhost:8080/api/profile");
+  } = useFetchLogged("/api/profile");
 
   useEffect(() => {
     if (address) {

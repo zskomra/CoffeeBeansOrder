@@ -28,9 +28,9 @@ const AuthForm = () => {
       password: enteredPassword,
     };
     if (isLogin) {
-      url = "http://localhost:8080/api/auth/signin";
+      url = "/api/auth/signin";
     } else {
-      url = "http://localhost:8080/api/auth/signup";
+      url = "/api/auth/signup";
     }
     fetch(url, {
       method: "POST",

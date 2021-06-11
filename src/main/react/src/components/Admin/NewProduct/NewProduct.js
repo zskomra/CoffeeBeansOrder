@@ -8,7 +8,7 @@ const NewProduct = () => {
   const authCtx =  useContext(AuthContext);
 
   const addProductHanlder = (productData) => {
-    fetch("http://localhost:8080/api/admin/product/add-new", {
+    fetch("/api/admin/product/add-new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
