@@ -1,0 +1,140 @@
+.header {
+  position: fixed;
+  width: 100%;
+  color: white;
+  display: flex;
+  height: 4rem;
+  justify-content:space-between;
+  align-items: center;
+  background-color: brown;
+  z-index: 10;
+  padding: 0 10%;
+  box-sizing: border-box;
+  
+}
+.main-link {
+  text-decoration: none;
+  color: white;
+}
+
+.header h1 {
+  text-align: center;
+  
+}
+.header-bot{
+  display: flex;
+  position:fixed;
+  width: 100%;
+  background-color: brown;
+  height: 3rem;
+  margin-top: 4rem;
+  z-index: 1;
+  padding: 0 10%;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.user-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.account {
+  position: relative;
+  display: inline-block;
+  
+}
+
+.profile-menu {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  background-color: brown;
+  width: 14rem;
+  border: 1px solid white;
+  right: 0px;
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+.profile-menu a {
+  color: black;
+  display: block;
+  width: 90%;
+  margin: 1rem auto;
+  text-decoration: none;
+  background-color: whitesmoke;
+  cursor: pointer;
+  border-radius: 10px;
+  line-height: 2.5rem;
+  text-align: center;
+}
+
+.accountbtn {
+  cursor: pointer;
+  background-color: rgb(136, 4, 4);
+  color: white;
+  font: inherit;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: none;
+  height: 100%;
+  margin-left: 1rem;
+}
+
+.main-image {
+  width: 100%;
+  height: 25rem;
+  
+}
+
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 7rem;
+}
+
+.profile-menu :hover {
+  background-color: #ddd;
+}
+
+.account:hover .profile-menu {
+  display: block;
+}
+
+.account:hover .accountbtn {
+    background-color: rgb(179, 103, 103);
+}
+
+@media screen and (max-width: 890px) {
+  .header, .header-bot{
+    padding: 0 1%;
+  }
+ 
+}
+
+@media screen and (max-width: 810px) {
+  .header-bot {
+    justify-content: space-between;
+    padding: 0 30% 0 1%;
+
+  }
+  .header {
+    justify-content:space-between;
+    padding: 0 1%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header h1{
+    font-size: 25px;
+  }
+}
