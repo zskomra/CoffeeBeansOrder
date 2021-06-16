@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("*")
 @Slf4j
 @Transactional
 @RequiredArgsConstructor

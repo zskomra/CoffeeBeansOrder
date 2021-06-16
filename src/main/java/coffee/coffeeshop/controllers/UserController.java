@@ -20,7 +20,6 @@ import javax.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/profile")
-@CrossOrigin("*")
 @Slf4j
 @Transactional
 @RequiredArgsConstructor

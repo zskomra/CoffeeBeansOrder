@@ -18,16 +18,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("*")
 @Slf4j
 @Transactional
 @RequiredArgsConstructor
