@@ -21,8 +21,6 @@ function App() {
   const authCtx = useContext(AuthContext);
   const history = useHistory();
 
-  console.log(authCtx.isAdmin);
-
   const logoutHandler = () => {
     authCtx.logout();
   };

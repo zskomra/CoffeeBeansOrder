@@ -37,7 +37,7 @@ const ProductItem = (props) => {
           <div className={classes.price}>{price}</div>
         </div>
         <div>
-          <ProductItemForm onAddToCart={onAddToCartHanlder} />
+          <ProductItemForm id={props.id} onAddToCart={onAddToCartHanlder} />
         </div>
       </li>
       {showButton && (
