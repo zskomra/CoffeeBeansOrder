@@ -40,8 +40,6 @@ public class AdminController {
     @PostMapping("/product/add-new")
     public ResponseEntity<?> addNewProduct(@RequestBody AddNewProductRequest productRequest) {
         log.info(String.valueOf(productRequest));
-        //todo check if user logged  and role is admin , add what if method failed
-
         Product product = productService.addNewProduct(productRequest);
         return ResponseEntity.ok(new MessageResponse("Product added successfully"));
     }

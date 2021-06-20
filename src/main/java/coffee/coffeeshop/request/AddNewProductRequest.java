@@ -14,6 +14,7 @@ public class AddNewProductRequest {
 
     private String name;
     private String description;
+    private String specific;
     private String price;
     private EProductCategory productCategory;
 

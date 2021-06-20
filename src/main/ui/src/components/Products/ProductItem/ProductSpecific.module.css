@@ -1,0 +1,36 @@
+.specific {
+  margin: 0.7rem;
+  margin-right: 2rem;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.content {
+  max-width: 792px;
+  width: 60%;
+}
+.product-image {
+    display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.product-image img {
+  width: 100%;
+  border-radius: 20px;
+  max-height: 210px;
+  max-width: 300px;
+}
+
+@media screen and (max-width: 560px) {
+  .specific {
+    display: block;
+  }
+  .content {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+ 
+}
