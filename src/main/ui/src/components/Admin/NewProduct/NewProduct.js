@@ -19,6 +19,7 @@ const NewProduct = () => {
         description: productData.description,
         price: productData.price,
         productCategory: productData.category,
+        specific: productData.specific
       }),
     }).then((response) =>{
       if(response.ok) {

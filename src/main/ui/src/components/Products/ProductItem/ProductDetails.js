@@ -9,7 +9,7 @@ const ProductDetails = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
   const { productId } = params;
-  const [bean, setBean] = useState("");
+  const [product, setProduct] = useState("");
   
   useEffect(() => {
     const fetchDetails = async () => {
@@ -20,21 +20,22 @@ const ProductDetails = (props) => {
       }
 
       const responseData = await response.json();
-      
-      const loadedBean = {
+      console.log(responseData);
+      const loadedProduct = {
         id: responseData.id,
         name: responseData.name,
         description: responseData.description,
         price: responseData.price,
+        specific: responseData.specific,
+        category: responseData.productCategories
       };
-      setBean(loadedBean);
+      setProduct(loadedProduct);
       setIsLoading(false);
     };
     fetchDetails()
       .then()
       .catch((error) => {
         setIsLoading(false);
-        console.log(error.message);
       });
   }, [productId]);
 
@@ -49,15 +50,14 @@ const ProductDetails = (props) => {
   return (
     <ProductCard>
       <ProductItem
-        id={bean.id}
-        name={bean.name}
-        key={bean.id}
-        description={bean.description}
-        price={bean.price}
+        id={product.id}
+        name={product.name}
+        key={product.id}
+        description={product.description}
+        price={product.price}
+        specific={product.specific}
+        category={product.category}
       />
-      <div>
-        <h3>In progress..</h3>
-      </div> 
     </ProductCard>
   );
 };

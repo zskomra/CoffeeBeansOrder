@@ -23,11 +23,13 @@ const NewProductForm = (props) => {
     name: "",
     price: "",
     description: "",
+    specific: ""
   });
   const productNameRef = useRef();
   const productPriceRef = useRef();
   const productDescriptionRef = useRef();
   const productCategoryInput = useRef();
+  const productSpecificRef = useRef();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -77,6 +79,7 @@ const NewProductForm = (props) => {
       name: productNameRef.current.value,
       description: productDescriptionRef.current.value,
       price: productPriceRef.current.value,
+      specific: productSpecificRef.current.value
     });
     setShowSummary((previousState) => !previousState);
   };
@@ -86,21 +89,25 @@ const NewProductForm = (props) => {
     const enteredPrice = productPriceRef.current.value;
     const enteredName = productNameRef.current.value;
     const enteredDescription = productDescriptionRef.current.value;
+    const enteredSpecific = productSpecificRef.current.value;
 
     const enteredPriceValidity = isPriceValidPattern.test(enteredPrice);
     const enteredNameValidity =
       !isEmpty(enteredName) && isFiveChar(enteredName);
     const enteredDescriptionValidity =
       !isEmpty(enteredDescription) && isFiveChar(enteredDescription);
+    const enteredSpecificValidity = 
+      !isEmpty(enteredSpecific) && isFiveChar(enteredSpecific);  
 
     setIsFormValid({
       name: enteredNameValidity,
       description: enteredDescriptionValidity,
       price: enteredPriceValidity,
+      specific: enteredSpecific
     });
 
     const formFalidIs =
-      enteredPriceValidity && enteredNameValidity && enteredDescriptionValidity;
+      enteredPriceValidity && enteredNameValidity && enteredDescriptionValidity && enteredSpecific;
     if (!formFalidIs) {
       return;
     }
@@ -110,6 +117,7 @@ const NewProductForm = (props) => {
       description: enteredDescription,
       price: enteredPrice,
       category: productCategoryInput.current.value,
+      specific: enteredSpecific
     };
 
     props.onConfirm(product);
@@ -146,6 +154,7 @@ const NewProductForm = (props) => {
                   {!isFormValid.price && <p>Please enter valid price</p>}
                 </div>
               </div>
+              <div className={classes[`details-wraper`]}>
               <div className={classes[`details-description`]}>
                 <label>Product description</label>
                 <textarea
@@ -155,6 +164,17 @@ const NewProductForm = (props) => {
                 {!isFormValid.description && (
                   <p>Please enter valid description</p>
                 )}
+              </div>
+              <div className={classes[`details-description`]}>
+                <label>Product specific</label>
+                <textarea
+                  ref={productSpecificRef}
+                  placeholder="Enter Product Specific"
+                ></textarea>
+                {!isFormValid.description && (
+                  <p>Please enter valid specific</p>
+                )}
+              </div>
               </div>
             </div>
             <div className={classes.actions}>
@@ -171,6 +191,8 @@ const NewProductForm = (props) => {
           name={productSummary.name}
           description={productSummary.description}
           price={productSummary.price}
+          category={productCategoryInput.current.value}
+          specific={productSummary.specific}
         />
       )}
     </Fragment>

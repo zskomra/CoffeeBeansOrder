@@ -32,6 +32,8 @@ public class Product implements Serializable {
     private String name;
     @Column(nullable = false)
     private String description;
+    @Column(length = 1000)
+    private String specific;
     @Column(nullable = false)
     private BigDecimal price;
 

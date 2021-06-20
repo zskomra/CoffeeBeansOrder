@@ -15,6 +15,7 @@ public class ProductConverter {
                 .name(productRequest.getName())
                 .description(productRequest.getDescription())
                 .price(price)
+                .specific(productRequest.getSpecific())
                 .build();
     }
 }
