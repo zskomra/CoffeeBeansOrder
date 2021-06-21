@@ -1,8 +1,9 @@
 import { useHistory } from "react-router";
 import AuthContext from "../../store/auth-context";
+import Modal from "../Cart/Modal";
 import classes from "./AuthForm.module.css";
 
-const { useState, useRef, useContext } = require("react");
+const { useState, useRef, useContext, useEffect } = require("react");
 
 const AuthForm = () => {
   const emailInputRef = useRef();
@@ -11,16 +12,20 @@ const AuthForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const authCtx = useContext(AuthContext);
   const history = useHistory();
+  const [isRegisteredSuccessful, setIsRegisteredSuccessful] = useState(null);
+
+  const [formColor, setformColor] = useState(` `);
 
   const switchAuthModeHanlder = () => {
     setIsLogin((prevState) => !prevState);
+    setformColor(isLogin ? classes[`log-color`] : classes[`reg-color`]);
   };
 
   const submitHanlder = (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    
+
     setIsLoading(true);
     let url;
     const request = {
@@ -54,14 +59,19 @@ const AuthForm = () => {
         if (isLogin) {
           history.replace("/");
         }
+        if(!isLogin) {
+          alert(data.message);
+          switchAuthModeHanlder();
+        }
       })
       .catch((err) => {
         alert(err.message);
       });
   };
 
-  return (
-    <section className={classes.auth}>
+
+  return (    
+    <section className={[classes.auth, formColor].join(' ')}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={submitHanlder}>
         <div className={classes.info}>
@@ -83,9 +93,10 @@ const AuthForm = () => {
           )}
           {isLoading && <p>Sending request..</p>}
           <button
-            className={classes.toggle}
+            className={[classes.toggle, formColor].join(' ')}
             type="button"
             onClick={switchAuthModeHanlder}
+            
           >
             {isLogin ? "Create new account" : "Login with existing account"}
           </button>
